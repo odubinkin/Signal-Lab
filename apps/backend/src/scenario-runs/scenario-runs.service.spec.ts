@@ -19,6 +19,7 @@ describe('ScenarioRunsService', () => {
   beforeEach(() => {
     prisma = {
       scenarioRun: {
+        findMany: jest.fn(),
         create: jest.fn(({ data }) =>
           Promise.resolve({
             id: 'run_123',
@@ -159,5 +160,39 @@ describe('ScenarioRunsService', () => {
     });
     expect(metrics.recordScenario).toHaveBeenCalledWith('slow_request', 'slow_warning', expect.any(Number));
     expect(metrics.recordHttp).toHaveBeenCalledWith('POST', '/api/scenarios/run', 200);
+  });
+
+  it('lists the latest 20 scenario runs for history', async () => {
+    const createdAt = new Date('2026-04-27T00:00:00.000Z');
+    jest.mocked(prisma.scenarioRun.findMany).mockResolvedValue([
+      {
+        id: 'run_recent',
+        type: 'success',
+        status: 'success',
+        duration: 20,
+        createdAt
+      }
+    ] as never);
+
+    await expect(service.listRecent()).resolves.toEqual([
+      {
+        id: 'run_recent',
+        type: 'success',
+        status: 'success',
+        duration: 20,
+        createdAt
+      }
+    ]);
+    expect(prisma.scenarioRun.findMany).toHaveBeenCalledWith({
+      orderBy: { createdAt: 'desc' },
+      take: 20,
+      select: {
+        id: true,
+        type: true,
+        status: true,
+        duration: true,
+        createdAt: true
+      }
+    });
   });
 });

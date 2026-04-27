@@ -1,0 +1,5 @@
+ .agentplane/WORKFLOW.md                         |   4 +-
+ .agentplane/config.json                         |   2 +-
+ .agentplane/tasks/202604270736-7VG1HV/README.md | 168 ++++++++++++++++++++++++
+ .agentplane/workflows/last-known-good.md        |   4 +-
+ 4 files changed, 173 insertions(+), 5 deletions(-)

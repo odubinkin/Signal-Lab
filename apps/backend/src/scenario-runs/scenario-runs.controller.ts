@@ -1,4 +1,4 @@
-import { Body, Controller, HttpCode, Post } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, Post } from '@nestjs/common';
 import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { RunScenarioDto } from './dto/run-scenario.dto';
 import { ScenarioRunsService } from './scenario-runs.service';
@@ -35,5 +35,26 @@ export class ScenarioRunsController {
   })
   run(@Body() dto: RunScenarioDto) {
     return this.scenarioRuns.run(dto);
+  }
+
+  /**
+   * Returns the most recent scenario runs for the frontend history panel.
+   */
+  @Get('runs')
+  @ApiOkResponse({
+    schema: {
+      example: [
+        {
+          id: 'clv0000000000abcd1234',
+          type: 'success',
+          status: 'success',
+          duration: 12,
+          createdAt: '2026-04-27T00:00:00.000Z'
+        }
+      ]
+    }
+  })
+  listRecent() {
+    return this.scenarioRuns.listRecent();
   }
 }

@@ -13,6 +13,14 @@ type ScenarioRunResponse = {
   duration: number;
 };
 
+type ScenarioRunHistoryItem = {
+  id: string;
+  type: string;
+  status: string;
+  duration: number | null;
+  createdAt: Date;
+};
+
 /**
  * Pauses execution for latency demo scenarios.
  *
@@ -80,6 +88,23 @@ export class ScenarioRunsService {
       status: run.status,
       duration: run.duration ?? duration
     };
+  }
+
+  /**
+   * Reads the latest persisted scenario runs for the frontend history view.
+   */
+  async listRecent(): Promise<ScenarioRunHistoryItem[]> {
+    return this.prisma.scenarioRun.findMany({
+      orderBy: { createdAt: 'desc' },
+      take: 20,
+      select: {
+        id: true,
+        type: true,
+        status: true,
+        duration: true,
+        createdAt: true
+      }
+    });
   }
 
   /**

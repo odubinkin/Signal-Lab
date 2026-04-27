@@ -34,7 +34,23 @@ services:
       postgres:
         condition: service_healthy
 
+  frontend:
+    image: node:22-bookworm-slim
+    working_dir: /workspace
+    command: sh -c "npm install && npm run dev -w apps/frontend -- --hostname 0.0.0.0"
+    environment:
+      NEXT_PUBLIC_API_BASE_URL: ${NEXT_PUBLIC_API_BASE_URL:-http://localhost:3001/api}
+    ports:
+      - "${FRONTEND_PORT:-3000}:3000"
+    volumes:
+      - .:/workspace
+      - root_node_modules:/workspace/node_modules
+      - frontend_node_modules:/workspace/apps/frontend/node_modules
+    depends_on:
+      - backend
+
 volumes:
   postgres_data:
   root_node_modules:
   backend_node_modules:
+  frontend_node_modules:
