@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "workflow_mode": "branch_pr",
+  "workflow_mode": "direct",
   "status_commit_policy": "warn",
   "commit_automation": "finish_only",
   "finish_auto_status_commit": false,

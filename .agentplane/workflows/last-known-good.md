@@ -5,7 +5,7 @@ approvals:
   require_verify: true
 in_scope_paths:
   - "**"
-mode: "branch_pr"
+mode: "direct"
 owners:
   orchestrator: "ORCHESTRATOR"
 retry_policy:
@@ -19,7 +19,7 @@ version: 1
 
 ## Prompt Template
 Repository: Signal-Lab
-Workflow mode: branch_pr
+Workflow mode: direct
 
 ## Checks
 - preflight

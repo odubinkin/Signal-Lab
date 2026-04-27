@@ -29,9 +29,8 @@ services:
     ports:
       - "${BACKEND_HOST_PORT:-3001}:${BACKEND_PORT:-3001}"
     volumes:
-      - .:/workspace
-      - /workspace/node_modules
-      - /workspace/apps/backend/node_modules
+      - ./apps/backend/src:/workspace/apps/backend/src
+      - ./prisma:/workspace/prisma
     labels:
       com.signal-lab.observe: "true"
       com.signal-lab.service: "backend"
@@ -50,14 +49,17 @@ services:
       context: .
       dockerfile: apps/frontend/Dockerfile.dev
     working_dir: /workspace
-    command: sh -c "npm run dev -w apps/frontend -- --hostname 0.0.0.0"
+    command: sh -c "npm run dev -w apps/frontend -- --hostname 0.0.0.0 --webpack"
     environment:
       NEXT_PUBLIC_API_BASE_URL: ${NEXT_PUBLIC_API_BASE_URL:-http://localhost:3001/api}
+      WATCHPACK_POLLING: "true"
     ports:
       - "${FRONTEND_PORT:-3000}:3000"
     volumes:
-      - .:/workspace
-      - /workspace/node_modules
+      - ./apps/frontend/app:/workspace/apps/frontend/app
+      - ./apps/frontend/components:/workspace/apps/frontend/components
+      - ./apps/frontend/lib:/workspace/apps/frontend/lib
+      - ./apps/frontend/public:/workspace/apps/frontend/public
     depends_on:
       backend:
         condition: service_healthy
