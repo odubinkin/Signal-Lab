@@ -46,3 +46,10 @@ Use this rule for changes under the Next.js frontend application.
 - Keep links or hints for Grafana, Loki, and Sentry discoverable in the app.
 - Run history should show type, status, duration, and timestamp for the latest runs.
 - Auto-refresh history with TanStack Query polling or mutation-driven invalidation.
+
+## Canonical References
+
+- `@apps/frontend/app/page.tsx`
+- `@apps/frontend/lib/api.ts`
+- `@apps/frontend/components/query-provider.tsx`
+- `@apps/frontend/components/ui/sonner.tsx`

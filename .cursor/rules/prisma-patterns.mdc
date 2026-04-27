@@ -26,8 +26,8 @@ Use this rule when changing `prisma/schema.prisma`, migrations, seed data, or ba
 
 - Access PostgreSQL only through Prisma Client.
 - Keep database logic in NestJS services or dedicated data-access providers, not controllers.
-- Store scenario execution records for successful, slow, system error, and `teapot` flows when execution reaches persistence.
-- Use `metadata` for extra structured context such as `{ "easter": true }` for the `teapot` scenario.
+- Store scenario execution records for all persisted scenario paths required by active PRDs.
+- Use `metadata` for structured non-sensitive context.
 - Use Prisma migrations for schema changes and document the command needed to apply them.
 
 ## Prohibited Patterns
@@ -42,3 +42,10 @@ Use this rule when changing `prisma/schema.prisma`, migrations, seed data, or ba
 - Keep DTO validation aligned with required scenario types: `success`, `validation_error`, `system_error`, `slow_request`, and `teapot`.
 - Regenerate Prisma Client after schema changes.
 - Ensure Docker startup or documented setup applies migrations before backend code depends on new fields.
+
+## Canonical References
+
+- `@prisma/schema.prisma`
+- `@apps/backend/src/prisma/prisma.service.ts`
+- `@apps/backend/src/scenario-runs/scenario-runs.service.ts`
+- `@apps/backend/src/scenario-runs/dto/run-scenario.dto.ts`

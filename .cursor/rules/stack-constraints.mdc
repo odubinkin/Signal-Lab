@@ -1,13 +1,11 @@
 ---
 description: Enforce the Signal Lab technology stack and block incompatible library choices.
-globs:
-  - "**/*"
 alwaysApply: true
 ---
 
 # Stack Constraints
 
-Use this rule for dependency decisions, scaffolding, and architecture changes in Signal Lab.
+Use this rule for dependency decisions and architecture changes.
 
 ## Required Stack
 
@@ -19,11 +17,9 @@ Use this rule for dependency decisions, scaffolding, and architecture changes in
 
 ## Allowed Defaults
 
-- Use TanStack Query for all server state, mutations, cache invalidation, polling, and API request lifecycle state.
-- Use React Hook Form for all forms, including simple demo forms.
-- Use shadcn/ui components before adding custom component primitives.
-- Use Prisma Client for database reads and writes.
-- Use NestJS modules, controllers, services, DTOs, filters, and providers for backend structure.
+- Use existing project libraries and patterns before introducing new dependencies.
+- Keep server state in TanStack Query and form state in React Hook Form.
+- Use Prisma Client for database access and NestJS modules/controllers/services/DTOs for backend structure.
 
 ## Do Not Add
 
@@ -37,3 +33,11 @@ Use this rule for dependency decisions, scaffolding, and architecture changes in
 - Prefer using dependencies already present in the repository.
 - When adding a package is unavoidable, document why the required stack cannot cover the case.
 - Keep frontend, backend, Prisma, and Docker changes aligned so `docker compose up -d` remains the primary verification path.
+
+## Canonical References
+
+- `@apps/frontend/lib/api.ts`
+- `@apps/frontend/components/query-provider.tsx`
+- `@apps/backend/src/app.module.ts`
+- `@apps/backend/src/prisma/prisma.service.ts`
+- `@docker-compose.yml`

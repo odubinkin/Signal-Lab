@@ -14,9 +14,8 @@ Use this rule when adding or changing API routes, exception filters, client requ
 
 - Use NestJS HTTP exceptions for expected client errors.
 - Keep a global exception filter that returns correct HTTP status codes and consistent JSON error bodies.
-- `validation_error` must return HTTP 400 with a useful message.
-- `system_error` must produce an HTTP 500 path and be captured by Sentry.
-- `teapot` must return HTTP 418 with `{ "signal": 42, "message": "I'm a teapot" }` and persist metadata `{ "easter": true }`.
+- Return explicit 4xx for expected client-side failures and normalized 5xx for unexpected failures.
+- Capture unexpected 5xx paths in Sentry.
 - Do not swallow unexpected exceptions silently.
 - Log every scenario execution path at the correct level:
   - success: `info`
@@ -37,3 +36,10 @@ Use this rule when adding or changing API routes, exception filters, client requ
 - Error handling must not break metrics. Increment error counters and record request totals for error responses.
 - Error handling must not break persistence for scenario types that PRDs require to save.
 - Prefer precise error messages that help the demo user continue the verification walkthrough.
+
+## Canonical References
+
+- `@apps/backend/src/shared/global-exception.filter.ts`
+- `@apps/backend/src/scenario-runs/scenario-runs.service.ts`
+- `@apps/frontend/lib/api.ts`
+- `@apps/frontend/app/page.tsx`

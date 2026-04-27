@@ -39,7 +39,7 @@ docker compose logs --tail=120 backend
 4. Verify the backend health endpoint:
 
 ```bash
-curl -fsS http://localhost:${BACKEND_PORT:-3001}/health
+curl -fsS http://localhost:${BACKEND_PORT:-3001}/api/health
 ```
 
 5. Verify Prometheus metrics are exposed and include required application metrics:
@@ -72,7 +72,7 @@ npx prisma migrate status --schema prisma/schema.prisma
 - `docker compose config --quiet` exits successfully.
 - `postgres` is healthy or `pg_isready` reports accepting connections.
 - `backend` is running.
-- `/health` returns a successful response.
+- `/api/health` returns a successful response.
 - `/metrics` returns Prometheus text and includes the required application metrics.
 - Logs do not show repeated crash loops, migration failures, missing environment variables, or uncaught startup exceptions.
 

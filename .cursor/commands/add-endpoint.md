@@ -53,7 +53,7 @@ If Docker behavior or database migrations changed, also run:
 ```bash
 docker compose up -d
 docker compose ps
-curl -fsS http://localhost:${BACKEND_PORT:-3001}/health
+curl -fsS http://localhost:${BACKEND_PORT:-3001}/api/health
 curl -fsS http://localhost:${BACKEND_PORT:-3001}/metrics
 ```
 

@@ -43,3 +43,11 @@ Use this rule when adding or changing backend endpoints, scenario execution, met
 - Keep Prometheus scraping the backend `/metrics` endpoint.
 - Keep Loki ingestion compatible with the JSON log format.
 - Grafana dashboards should preserve panels for scenario runs by type, latency distribution, and error rate.
+
+## Canonical References
+
+- `@apps/backend/src/metrics/metrics.service.ts`
+- `@apps/backend/src/metrics/metrics.controller.ts`
+- `@apps/backend/src/shared/json-logger.service.ts`
+- `@apps/backend/src/main.ts`
+- `@observability/prometheus/prometheus.yml`
