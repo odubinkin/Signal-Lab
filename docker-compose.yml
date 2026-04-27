@@ -25,16 +25,39 @@ services:
       SLOW_REQUEST_TIMEOUT_MS: ${SLOW_REQUEST_TIMEOUT_MS:-5000}
       SENTRY_DSN: ${SENTRY_DSN:-}
     ports:
-      - "${BACKEND_PORT:-3001}:3001"
+      - "${BACKEND_HOST_PORT:-3001}:${BACKEND_PORT:-3001}"
     volumes:
       - .:/workspace
       - root_node_modules:/workspace/node_modules
       - backend_node_modules:/workspace/apps/backend/node_modules
+    healthcheck:
+      test: ["CMD-SHELL", "node -e \"const port = process.env.BACKEND_PORT || 3001; fetch('http://127.0.0.1:' + port + '/api/health').then(r => process.exit(r.ok ? 0 : 1)).catch(() => process.exit(1))\""]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 30s
     depends_on:
       postgres:
+        condition: service_healthy
+
+  frontend:
+    image: node:22-bookworm-slim
+    working_dir: /workspace
+    command: sh -c "npm install && npm run dev -w apps/frontend -- --hostname 0.0.0.0"
+    environment:
+      NEXT_PUBLIC_API_BASE_URL: ${NEXT_PUBLIC_API_BASE_URL:-http://localhost:3001/api}
+    ports:
+      - "${FRONTEND_PORT:-3000}:3000"
+    volumes:
+      - .:/workspace
+      - root_node_modules:/workspace/node_modules
+      - frontend_node_modules:/workspace/apps/frontend/node_modules
+    depends_on:
+      backend:
         condition: service_healthy
 
 volumes:
   postgres_data:
   root_node_modules:
   backend_node_modules:
+  frontend_node_modules:

@@ -1,6 +1,6 @@
 # Signal Lab
 
-Backend foundation for Signal Lab.
+Platform foundation and observability demo for Signal Lab.
 
 ## Prerequisites
 
@@ -14,6 +14,7 @@ cp .env.example .env
 docker compose up -d
 ```
 
+The frontend is available at `http://localhost:3000`.
 The backend is available at `http://localhost:3001`.
 
 `slow_request` waits for `SLOW_REQUEST_TIMEOUT_MS`; the default is `5000`.
@@ -22,6 +23,7 @@ The backend is available at `http://localhost:3001`.
 
 ```bash
 curl http://localhost:3001/api/health
+open http://localhost:3000
 curl http://localhost:3001/api/docs
 curl -X POST http://localhost:3001/api/scenarios/run \
   -H 'Content-Type: application/json' \
@@ -39,6 +41,12 @@ Expected health response:
 ```
 
 Swagger UI is served from `http://localhost:3001/api/docs`.
+
+The frontend scenario runner uses:
+
+- `GET /api/health` for API status.
+- `POST /api/scenarios/run` for scenario execution.
+- `GET /api/scenarios/runs` for the latest 20 persisted runs.
 
 ## Database
 

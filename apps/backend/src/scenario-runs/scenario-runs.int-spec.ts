@@ -15,13 +15,24 @@ jest.mock('@sentry/node', () => ({
 describe('Backend scenario HTTP integration', () => {
   const originalSlowRequestTimeout = process.env.SLOW_REQUEST_TIMEOUT_MS;
   let app: INestApplication;
-  let prisma: { scenarioRun: { create: jest.Mock } };
+  let prisma: { scenarioRun: { create: jest.Mock; findMany: jest.Mock } };
   let logger: jest.Mocked<Pick<JsonLogger, 'log' | 'warn' | 'error' | 'debug' | 'scenario'>>;
 
   beforeAll(async () => {
     process.env.SLOW_REQUEST_TIMEOUT_MS = '0';
     prisma = {
       scenarioRun: {
+        findMany: jest.fn(() =>
+          Promise.resolve([
+            {
+              id: 'run_recent',
+              type: 'success',
+              status: 'success',
+              duration: 14,
+              createdAt: new Date('2026-04-27T00:00:00.000Z')
+            }
+          ])
+        ),
         create: jest.fn(({ data }) =>
           Promise.resolve({
             id: `run_${data.type}`,
@@ -68,6 +79,7 @@ describe('Backend scenario HTTP integration', () => {
 
   beforeEach(() => {
     prisma.scenarioRun.create.mockClear();
+    prisma.scenarioRun.findMany.mockClear();
     jest.mocked(Sentry.captureException).mockClear();
   });
 
@@ -160,6 +172,31 @@ describe('Backend scenario HTTP integration', () => {
       id: 'run_slow_request',
       type: 'slow_request',
       status: 'slow_warning'
+    });
+  });
+
+  it('returns recent scenario runs for the frontend history', async () => {
+    const response = await request(app.getHttpServer()).get('/api/scenarios/runs').expect(200);
+
+    expect(response.body).toEqual([
+      {
+        id: 'run_recent',
+        type: 'success',
+        status: 'success',
+        duration: 14,
+        createdAt: '2026-04-27T00:00:00.000Z'
+      }
+    ]);
+    expect(prisma.scenarioRun.findMany).toHaveBeenCalledWith({
+      orderBy: { createdAt: 'desc' },
+      take: 20,
+      select: {
+        id: true,
+        type: true,
+        status: true,
+        duration: true,
+        createdAt: true
+      }
     });
   });
 
