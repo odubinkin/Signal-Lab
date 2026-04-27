@@ -1,0 +1,10 @@
+ .env.example                                       |  15 ++
+ README.md                                          |  38 +++++
+ docker-compose.yml                                 |  85 +++++++++++
+ observability/grafana/dashboards/signal-lab.json   | 157 +++++++++++++++++++++
+ .../grafana/provisioning/dashboards/dashboards.yml |  13 ++
+ .../provisioning/datasources/datasources.yml       |  21 +++
+ observability/loki/loki-config.yml                 |  42 ++++++
+ observability/prometheus/prometheus.yml            |  20 +++
+ observability/promtail/promtail-config.yml         |  49 +++++++
+ 9 files changed, 440 insertions(+)
