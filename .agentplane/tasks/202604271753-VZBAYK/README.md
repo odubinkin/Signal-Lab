@@ -1,10 +1,11 @@
 ---
 id: "202604271753-VZBAYK"
 title: "Migrate AGENTS gateway to Cursor workflow"
-status: "DOING"
+result_summary: "Cursor gateway active at root AGENTS.md; archived policy at .agentplane/AGENTS.md; task artifact READMEs tracked."
+status: "DONE"
 priority: "med"
 owner: "DOCS"
-revision: 5
+revision: 6
 origin:
   system: "manual"
 depends_on: []
@@ -21,11 +22,16 @@ verification:
   updated_at: "2026-04-27T18:04:36.088Z"
   updated_by: "DOCS"
   note: "AGENTS gateway migrated to Cursor-native routing: root AGENTS.md references .cursor rules/skills/hooks/plugins without agentplane dependency; legacy gateway preserved at .agentplane/AGENTS.md; included pending task README artifacts for DONE tasks."
-commit: null
+commit:
+  hash: "a3b273d1dafcab4ceea11835bfe2f08481a44e85"
+  message: "📝 docs: migrate AGENTS gateway to Cursor"
 comments:
   -
     author: "DOCS"
     body: "Start: Migrating AGENTS gateway from agentplane-specific policy to Cursor-native, skill-driven workflow based on local .cursor assets and current Cursor docs best practices."
+  -
+    author: "DOCS"
+    body: "Verified: AGENTS gateway moved to Cursor-native contract with references to .cursor rules/skills/hooks/plugins; legacy gateway archived in .agentplane; task artifact READMEs committed."
 events:
   -
     type: "status"
@@ -40,8 +46,15 @@ events:
     author: "DOCS"
     state: "ok"
     note: "AGENTS gateway migrated to Cursor-native routing: root AGENTS.md references .cursor rules/skills/hooks/plugins without agentplane dependency; legacy gateway preserved at .agentplane/AGENTS.md; included pending task README artifacts for DONE tasks."
+  -
+    type: "status"
+    at: "2026-04-27T18:04:56.259Z"
+    author: "DOCS"
+    from: "DOING"
+    to: "DONE"
+    note: "Verified: AGENTS gateway moved to Cursor-native contract with references to .cursor rules/skills/hooks/plugins; legacy gateway archived in .agentplane; task artifact READMEs committed."
 doc_version: 3
-doc_updated_at: "2026-04-27T18:04:36.100Z"
+doc_updated_at: "2026-04-27T18:04:56.259Z"
 doc_updated_by: "DOCS"
 description: "Move current AGENTS.md into .agentplane and create new root AGENTS.md for Cursor-native workflow using .cursor skills/plugins and Cursor docs best practices"
 sections:
