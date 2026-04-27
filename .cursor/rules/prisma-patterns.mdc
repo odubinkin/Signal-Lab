@@ -1,0 +1,44 @@
+---
+description: Define safe Prisma and PostgreSQL patterns for Signal Lab database changes.
+globs:
+  - "prisma/**/*"
+  - "apps/backend/**/*"
+alwaysApply: false
+---
+
+# Prisma Patterns
+
+Use this rule when changing `prisma/schema.prisma`, migrations, seed data, or backend persistence logic.
+
+## Required Model Context
+
+- `ScenarioRun` is the primary domain model.
+- Preserve these PRD-required fields unless a later PRD explicitly changes them:
+  - `id String @id @default(cuid())`
+  - `type String`
+  - `status String`
+  - `duration Int?`
+  - `error String?`
+  - `metadata Json?`
+  - `createdAt DateTime @default(now())`
+
+## Prisma Usage
+
+- Access PostgreSQL only through Prisma Client.
+- Keep database logic in NestJS services or dedicated data-access providers, not controllers.
+- Store scenario execution records for successful, slow, system error, and `teapot` flows when execution reaches persistence.
+- Use `metadata` for extra structured context such as `{ "easter": true }` for the `teapot` scenario.
+- Use Prisma migrations for schema changes and document the command needed to apply them.
+
+## Prohibited Patterns
+
+- Do not use raw SQL through Prisma unless a PRD explicitly requires it and there is no Prisma API equivalent.
+- Do not add another ORM, query builder, or direct PostgreSQL client.
+- Do not hand-edit generated Prisma Client output.
+- Do not store secrets, Sentry DSNs, tokens, or credentials in database seed data or schema defaults.
+
+## Validation And Types
+
+- Keep DTO validation aligned with required scenario types: `success`, `validation_error`, `system_error`, `slow_request`, and `teapot`.
+- Regenerate Prisma Client after schema changes.
+- Ensure Docker startup or documented setup applies migrations before backend code depends on new fields.

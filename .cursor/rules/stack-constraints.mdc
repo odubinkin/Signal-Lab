@@ -1,0 +1,39 @@
+---
+description: Enforce the Signal Lab technology stack and block incompatible library choices.
+globs:
+  - "**/*"
+alwaysApply: true
+---
+
+# Stack Constraints
+
+Use this rule for dependency decisions, scaffolding, and architecture changes in Signal Lab.
+
+## Required Stack
+
+- Frontend: Next.js App Router, React, TypeScript, Tailwind CSS, shadcn/ui, TanStack Query, React Hook Form.
+- Backend: NestJS, TypeScript strict mode, Swagger for API documentation.
+- Database: PostgreSQL 16 accessed through Prisma.
+- Infrastructure: Docker Compose as the local runtime entrypoint.
+- Observability: Prometheus metrics, structured JSON logs for Loki, Sentry integration.
+
+## Allowed Defaults
+
+- Use TanStack Query for all server state, mutations, cache invalidation, polling, and API request lifecycle state.
+- Use React Hook Form for all forms, including simple demo forms.
+- Use shadcn/ui components before adding custom component primitives.
+- Use Prisma Client for database reads and writes.
+- Use NestJS modules, controllers, services, DTOs, filters, and providers for backend structure.
+
+## Do Not Add
+
+- Do not add Redux, Zustand, MobX, Jotai, Recoil, SWR, Apollo Client, or another state/query library unless a PRD explicitly changes the stack.
+- Do not add another ORM, query builder, or direct database client such as TypeORM, Drizzle, Knex, Sequelize, pg, or postgres.js.
+- Do not replace Docker Compose with a different local orchestration path.
+- Do not bypass TypeScript strictness with broad `any`, disabled checks, or unchecked casts.
+
+## Dependency Changes
+
+- Prefer using dependencies already present in the repository.
+- When adding a package is unavoidable, document why the required stack cannot cover the case.
+- Keep frontend, backend, Prisma, and Docker changes aligned so `docker compose up -d` remains the primary verification path.

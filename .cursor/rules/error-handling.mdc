@@ -1,0 +1,39 @@
+---
+description: Define backend and frontend error handling expectations for Signal Lab.
+globs:
+  - "apps/backend/**/*"
+  - "apps/frontend/**/*"
+alwaysApply: false
+---
+
+# Error Handling
+
+Use this rule when adding or changing API routes, exception filters, client requests, forms, or user feedback.
+
+## Backend
+
+- Use NestJS HTTP exceptions for expected client errors.
+- Keep a global exception filter that returns correct HTTP status codes and consistent JSON error bodies.
+- `validation_error` must return HTTP 400 with a useful message.
+- `system_error` must produce an HTTP 500 path and be captured by Sentry.
+- `teapot` must return HTTP 418 with `{ "signal": 42, "message": "I'm a teapot" }` and persist metadata `{ "easter": true }`.
+- Do not swallow unexpected exceptions silently.
+- Log every scenario execution path at the correct level:
+  - success: `info`
+  - validation error: `warn`
+  - slow request: `warn`
+  - system error: `error`
+
+## Frontend
+
+- Treat non-2xx API responses as errors in TanStack Query mutation/query functions.
+- Show success and error feedback through the existing shadcn-compatible toast pattern.
+- Preserve form state after recoverable validation errors.
+- Avoid exposing raw stack traces, internal exception names, secrets, or infrastructure details in UI messages.
+- Keep loading and disabled states explicit while requests are in flight.
+
+## Cross-Cutting Behavior
+
+- Error handling must not break metrics. Increment error counters and record request totals for error responses.
+- Error handling must not break persistence for scenario types that PRDs require to save.
+- Prefer precise error messages that help the demo user continue the verification walkthrough.

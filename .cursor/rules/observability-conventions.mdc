@@ -1,0 +1,45 @@
+---
+description: Define metrics, logging, and Sentry conventions for Signal Lab observability work.
+globs:
+  - "apps/backend/**/*"
+  - "docker-compose.yml"
+  - "prisma/**/*"
+alwaysApply: false
+---
+
+# Observability Conventions
+
+Use this rule when adding or changing backend endpoints, scenario execution, metrics, logs, dashboards, or Sentry integration.
+
+## Metrics
+
+- Expose Prometheus metrics from `GET /metrics`.
+- Keep required metric names stable:
+  - `scenario_runs_total` counter with labels `type` and `status`.
+  - `scenario_run_duration_seconds` histogram with label `type`.
+  - `http_requests_total` counter with labels `method`, `path`, and `status_code`.
+- Use low-cardinality labels only. Do not use scenario IDs, user input names, error messages, timestamps, or request bodies as labels.
+- Record one scenario run count for every handled scenario path, including validation and system errors when the request reaches scenario execution.
+- Record latency in seconds for scenario execution using a histogram.
+
+## Structured Logs
+
+- Emit JSON logs with at least `timestamp`, `level`, `message`, and `context`.
+- For scenario runs, include `scenarioType`, `scenarioId` when available, `duration` when measured, and `error` when an error exists.
+- Use `info` for successful scenario execution.
+- Use `warn` for validation errors and intentionally slow requests.
+- Use `error` for system failures and unexpected exceptions.
+- Do not log secrets, DSNs, tokens, full request bodies, or raw stack traces in normal structured fields.
+
+## Sentry
+
+- Configure Sentry through environment variables; `.env.example` may contain placeholders only.
+- Capture exceptions for `system_error` and other unexpected 5xx paths.
+- Add breadcrumbs for validation failures when useful, but do not report expected 400 responses as exceptions.
+- Include safe tags such as scenario type and status. Do not attach sensitive payloads.
+
+## Docker And Dashboards
+
+- Keep Prometheus scraping the backend `/metrics` endpoint.
+- Keep Loki ingestion compatible with the JSON log format.
+- Grafana dashboards should preserve panels for scenario runs by type, latency distribution, and error rate.

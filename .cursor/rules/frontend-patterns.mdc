@@ -1,0 +1,48 @@
+---
+description: Define frontend implementation patterns for Signal Lab Next.js, shadcn/ui, forms, and server state.
+globs:
+  - "apps/frontend/**/*"
+alwaysApply: false
+---
+
+# Frontend Patterns
+
+Use this rule for changes under the Next.js frontend application.
+
+## App Structure
+
+- Use Next.js App Router conventions.
+- Keep user-facing scenario workflows visible from the main application surface.
+- Prefer small, typed components with clear props over broad page-level logic.
+- Keep environment-specific API URLs in configuration, not hardcoded throughout components.
+
+## Server State
+
+- Use TanStack Query for API reads, mutations, loading states, retries, polling, and cache invalidation.
+- Use `useQuery` for health checks and run history.
+- Use `useMutation` for `POST /api/scenarios/run`.
+- Invalidate or refetch run history after a scenario mutation succeeds or fails in a way that creates a persisted run.
+- Do not add SWR, Redux, Zustand, Apollo Client, or another server-state layer.
+
+## Forms
+
+- Use React Hook Form for scenario and configuration forms.
+- Validate scenario type and optional name before submitting.
+- Keep submit buttons disabled or in a loading state while mutations are pending.
+- Surface backend validation failures as form or toast feedback without losing the current input.
+
+## UI Components
+
+- Use shadcn/ui components first, including Button, Card, Input, Select, Badge, and Toast/Sonner where appropriate.
+- Use Tailwind CSS for layout and spacing.
+- Represent run statuses with scannable badges:
+  - completed or success: green treatment.
+  - validation or slow warning states: yellow treatment.
+  - error or failed states: red treatment.
+- Do not create a marketing landing page when the requirement is an operational demo UI.
+
+## Observability UX
+
+- Keep links or hints for Grafana, Loki, and Sentry discoverable in the app.
+- Run history should show type, status, duration, and timestamp for the latest runs.
+- Auto-refresh history with TanStack Query polling or mutation-driven invalidation.
