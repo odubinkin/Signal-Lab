@@ -1,0 +1,14 @@
+{
+  "base": "main",
+  "branch": "task/202604270959-3HJEXZ/fix-turbopack-root",
+  "created_at": "2026-04-27T10:23:03.573Z",
+  "head_sha": "2044167c32fb1f79e2fccdddc09c464728049623",
+  "last_verified_at": "2026-04-27T10:23:19.870Z",
+  "last_verified_sha": "415cb149dedcb0c192f700eb3bf28fdb433a2a71",
+  "schema_version": 1,
+  "task_id": "202604270959-3HJEXZ",
+  "updated_at": "2026-04-27T10:23:48.061Z",
+  "verify": {
+    "status": "pass"
+  }
+}
