@@ -1,10 +1,11 @@
 ---
 id: "202604271810-2K5XQY"
 title: "Document Cursor AI layer"
-status: "DOING"
+result_summary: "Documented Cursor AI layer, checklist, screenshots, and approved frontend policy-file cleanup."
+status: "DONE"
 priority: "med"
 owner: "DOCS"
-revision: 5
+revision: 6
 origin:
   system: "manual"
 depends_on: []
@@ -21,11 +22,16 @@ verification:
   updated_at: "2026-04-27T18:14:09.885Z"
   updated_by: "DOCS"
   note: "Command: node .agentplane/policy/check-routing.mjs. Result: fail. Evidence: root AGENTS.md does not satisfy Agentplane routing gateway headings/import requirements; this predates and is outside the approved docs scope. Command: agentplane doctor. Result: pass/OK with one info item about missing local pre-push script fallback. Command: referenced-file existence shell check. Result: pass. Scope: AI-LAYER.md, README.md, SUBMISSION_CHECKLIST.md, approved frontend AGENTS/CLAUDE deletions, and task artifact."
-commit: null
+commit:
+  hash: "03261453cf3a4ed701f40fc0a610b62f535939d2"
+  message: "✅ 2K5XQY docs: done"
 comments:
   -
     author: "DOCS"
     body: "Start: Documenting the Cursor AI layer from PRD 003 and PRD 004, updating README and submission checklist, and preserving the approved frontend policy file deletions."
+  -
+    author: "DOCS"
+    body: "Verified: AI layer docs, README link, submission checklist, approved frontend policy-file deletions, and screenshot links are committed; agentplane doctor passed, while check-routing still reports the known pre-existing root AGENTS gateway mismatch outside this task scope."
 events:
   -
     type: "status"
@@ -40,8 +46,15 @@ events:
     author: "DOCS"
     state: "needs_rework"
     note: "Command: node .agentplane/policy/check-routing.mjs. Result: fail. Evidence: root AGENTS.md does not satisfy Agentplane routing gateway headings/import requirements; this predates and is outside the approved docs scope. Command: agentplane doctor. Result: pass/OK with one info item about missing local pre-push script fallback. Command: referenced-file existence shell check. Result: pass. Scope: AI-LAYER.md, README.md, SUBMISSION_CHECKLIST.md, approved frontend AGENTS/CLAUDE deletions, and task artifact."
+  -
+    type: "status"
+    at: "2026-04-27T18:53:33.472Z"
+    author: "DOCS"
+    from: "DOING"
+    to: "DONE"
+    note: "Verified: AI layer docs, README link, submission checklist, approved frontend policy-file deletions, and screenshot links are committed; agentplane doctor passed, while check-routing still reports the known pre-existing root AGENTS gateway mismatch outside this task scope."
 doc_version: 3
-doc_updated_at: "2026-04-27T18:14:09.894Z"
+doc_updated_at: "2026-04-27T18:53:33.473Z"
 doc_updated_by: "DOCS"
 description: "Create Russian AI-LAYER.md from PRD 003/004, reduce README to a link, fill SUBMISSION_CHECKLIST with known facts and <?КАК?> placeholders, and include approved frontend AGENTS/CLAUDE deletions."
 sections:
