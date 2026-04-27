@@ -21,16 +21,18 @@ In scope: add two Cursor command markdown prompts under .cursor/commands for /ad
 <details>
 <summary>Raw evidence</summary>
 
-- Updated: 2026-04-27T07:49:46.549Z
+- Updated: 2026-04-27T07:51:45.940Z
 - Branch: task/202604270749-V61J47/cursor-commands
-- Head: 07f307171819
+- Head: a63b81c06c4c
 
 ```text
  .agentplane/WORKFLOW.md                         |   4 +-
  .agentplane/config.json                         |   2 +-
  .agentplane/tasks/202604270736-7VG1HV/README.md | 168 ++++++++++++++++++++++++
  .agentplane/workflows/last-known-good.md        |   4 +-
- 4 files changed, 173 insertions(+), 5 deletions(-)
+ .cursor/commands/add-endpoint.md                |  68 ++++++++++
+ .cursor/commands/health-check.md                |  90 +++++++++++++
+ 6 files changed, 331 insertions(+), 5 deletions(-)
 ```
 
 </details>

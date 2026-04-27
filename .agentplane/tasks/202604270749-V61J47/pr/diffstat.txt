@@ -2,4 +2,6 @@
  .agentplane/config.json                         |   2 +-
  .agentplane/tasks/202604270736-7VG1HV/README.md | 168 ++++++++++++++++++++++++
  .agentplane/workflows/last-known-good.md        |   4 +-
- 4 files changed, 173 insertions(+), 5 deletions(-)
+ .cursor/commands/add-endpoint.md                |  68 ++++++++++
+ .cursor/commands/health-check.md                |  90 +++++++++++++
+ 6 files changed, 331 insertions(+), 5 deletions(-)
