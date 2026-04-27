@@ -4,7 +4,7 @@ title: "Build frontend observability demo"
 status: "DOING"
 priority: "med"
 owner: "CODER"
-revision: 6
+revision: 7
 origin:
   system: "manual"
 depends_on: []
@@ -18,9 +18,9 @@ plan_approval:
   note: null
 verification:
   state: "ok"
-  updated_at: "2026-04-27T08:09:11.070Z"
+  updated_at: "2026-04-27T08:24:21.240Z"
   updated_by: "CODER"
-  note: "Fixed compose readiness and frontend retry/loading behavior for startup and run history."
+  note: "Updated .env.example with backend/frontend sections and variable purpose comments."
 commit: null
 comments:
   -
@@ -46,8 +46,14 @@ events:
     author: "CODER"
     state: "ok"
     note: "Fixed compose readiness and frontend retry/loading behavior for startup and run history."
+  -
+    type: "verify"
+    at: "2026-04-27T08:24:21.240Z"
+    author: "CODER"
+    state: "ok"
+    note: "Updated .env.example with backend/frontend sections and variable purpose comments."
 doc_version: 3
-doc_updated_at: "2026-04-27T08:09:11.094Z"
+doc_updated_at: "2026-04-27T08:24:21.250Z"
 doc_updated_by: "CODER"
 description: "Implement the Signal Lab frontend from PRD 001 and PRD 002 using Next.js scaffold utilities, Tailwind, shadcn-style UI, TanStack Query, and React Hook Form. Add only minimal backend/API support required for frontend run history."
 sections:
@@ -105,6 +111,18 @@ sections:
     Command: POSTGRES_PORT=55432 BACKEND_HOST_PORT=3301 NEXT_PUBLIC_API_BASE_URL=http://localhost:3301/api docker compose up -d | Result: pass | Evidence: postgres healthy, backend healthy, frontend started only after backend health | Scope: real compose startup behavior with alternate host ports due local conflicts.
     Command: curl http://localhost:3301/api/health && curl http://localhost:3301/api/scenarios/runs && POST /api/scenarios/run then GET /api/scenarios/runs | Result: pass | Evidence: health returned ok; history returned [] initially and then the persisted success run | Scope: backend history endpoint.
     Command: Playwright goto http://localhost:3000 | Result: pass | Evidence: page text showed API ok and Run History contained the success entry | Scope: browser-visible frontend history integration.
+    
+    ### 2026-04-27T08:24:21.240Z — VERIFY — ok
+    
+    By: CODER
+    
+    Note: Updated .env.example with backend/frontend sections and variable purpose comments.
+    
+    VerifyStepsRef: doc_version=3, doc_updated_at=2026-04-27T08:09:11.094Z, excerpt_hash=sha256:0c911ba57bbda86e6b1d4b2c31f39ff10ccc1febf923fdb7f66dbb574080a0d7
+    
+    Details:
+    
+    Command: docker compose config --quiet | Result: pass | Evidence: compose config exited 0 | Scope: .env.example variable names remain compatible with compose.
     
     <!-- END VERIFICATION RESULTS -->
   Rollback Plan: |-
@@ -176,6 +194,18 @@ Command: docker compose config --quiet | Result: pass | Evidence: compose config
 Command: POSTGRES_PORT=55432 BACKEND_HOST_PORT=3301 NEXT_PUBLIC_API_BASE_URL=http://localhost:3301/api docker compose up -d | Result: pass | Evidence: postgres healthy, backend healthy, frontend started only after backend health | Scope: real compose startup behavior with alternate host ports due local conflicts.
 Command: curl http://localhost:3301/api/health && curl http://localhost:3301/api/scenarios/runs && POST /api/scenarios/run then GET /api/scenarios/runs | Result: pass | Evidence: health returned ok; history returned [] initially and then the persisted success run | Scope: backend history endpoint.
 Command: Playwright goto http://localhost:3000 | Result: pass | Evidence: page text showed API ok and Run History contained the success entry | Scope: browser-visible frontend history integration.
+
+### 2026-04-27T08:24:21.240Z — VERIFY — ok
+
+By: CODER
+
+Note: Updated .env.example with backend/frontend sections and variable purpose comments.
+
+VerifyStepsRef: doc_version=3, doc_updated_at=2026-04-27T08:09:11.094Z, excerpt_hash=sha256:0c911ba57bbda86e6b1d4b2c31f39ff10ccc1febf923fdb7f66dbb574080a0d7
+
+Details:
+
+Command: docker compose config --quiet | Result: pass | Evidence: compose config exited 0 | Scope: .env.example variable names remain compatible with compose.
 
 <!-- END VERIFICATION RESULTS -->
 
