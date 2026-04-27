@@ -45,16 +45,16 @@ Implement the Signal Lab frontend from PRD 001 and PRD 002 using Next.js scaffol
 <details>
 <summary>Raw evidence</summary>
 
-- Updated: 2026-04-27T07:55:23.494Z
+- Updated: 2026-04-27T08:09:36.722Z
 - Branch: task/202604270743-2G1NNK/frontend-observability-demo
-- Head: 7e4e31a0bf59
+- Head: ef9119d62c83
 
 ```text
  .agentplane/WORKFLOW.md                            |     4 +-
  .agentplane/config.json                            |     2 +-
  .agentplane/tasks/202604270736-7VG1HV/README.md    |   168 +
  .agentplane/workflows/last-known-good.md           |     4 +-
- .env.example                                       |     2 +
+ .env.example                                       |     3 +
  README.md                                          |    10 +-
  .../src/scenario-runs/scenario-runs.controller.ts  |    23 +-
  .../src/scenario-runs/scenario-runs.int-spec.ts    |    39 +-
@@ -68,7 +68,7 @@ Implement the Signal Lab frontend from PRD 001 and PRD 002 using Next.js scaffol
  apps/frontend/app/favicon.ico                      |   Bin 0 -> 25931 bytes
  apps/frontend/app/globals.css                      |   130 +
  apps/frontend/app/layout.tsx                       |    24 +
- apps/frontend/app/page.tsx                         |   246 +
+ apps/frontend/app/page.tsx                         |   261 +
  apps/frontend/components.json                      |    25 +
  apps/frontend/components/query-provider.tsx        |    20 +
  apps/frontend/components/ui/badge.tsx              |    52 +
@@ -89,10 +89,10 @@ Implement the Signal Lab frontend from PRD 001 and PRD 002 using Next.js scaffol
  apps/frontend/public/vercel.svg                    |     1 +
  apps/frontend/public/window.svg                    |     1 +
  apps/frontend/tsconfig.json                        |    34 +
- docker-compose.yml                                 |    16 +
+ docker-compose.yml                                 |    25 +-
  package-lock.json                                  | 19785 ++++++++++++-------
  package.json                                       |     3 +
- 42 files changed, 14341 insertions(+), 6993 deletions(-)
+ 42 files changed, 14365 insertions(+), 6994 deletions(-)
 ```
 
 </details>
