@@ -1,10 +1,11 @@
 ---
 id: "202604270625-2RD3VJ"
 title: "Add Cursor development rules from PRD 003"
-status: "DOING"
+result_summary: "Done"
+status: "DONE"
 priority: "med"
 owner: "DOCS"
-revision: 6
+revision: 7
 origin:
   system: "manual"
 depends_on: []
@@ -21,11 +22,16 @@ verification:
   updated_at: "2026-04-27T06:31:33.508Z"
   updated_by: "DOCS"
   note: "Verified: updated Cursor rules so teapot is treated as a required scenario type, not optional; targeted rg found no optional teapot wording; node .agentplane/policy/check-routing.mjs passed; agentplane doctor passed."
-commit: null
+commit:
+  hash: "5fbc3a5bcf702a16e7c65e7017c5742c51b9b0fb"
+  message: "✨ docs: add Cursor development rules"
 comments:
   -
     author: "DOCS"
     body: "Start: Creating scoped Cursor rule files from PRD 003 and related PRDs, with verification limited to docs policy checks and no commit or finish."
+  -
+    author: "DOCS"
+    body: "Verified: created and checked Cursor development rules for stack constraints, observability conventions, Prisma patterns, frontend patterns, and error handling; teapot is treated as a required scenario; routing and doctor checks passed."
 events:
   -
     type: "status"
@@ -46,8 +52,15 @@ events:
     author: "DOCS"
     state: "ok"
     note: "Verified: updated Cursor rules so teapot is treated as a required scenario type, not optional; targeted rg found no optional teapot wording; node .agentplane/policy/check-routing.mjs passed; agentplane doctor passed."
+  -
+    type: "status"
+    at: "2026-04-27T06:37:28.607Z"
+    author: "DOCS"
+    from: "DOING"
+    to: "DONE"
+    note: "Verified: created and checked Cursor development rules for stack constraints, observability conventions, Prisma patterns, frontend patterns, and error handling; teapot is treated as a required scenario; routing and doctor checks passed."
 doc_version: 3
-doc_updated_at: "2026-04-27T06:31:33.517Z"
+doc_updated_at: "2026-04-27T06:37:28.608Z"
 doc_updated_by: "DOCS"
 description: "Create Cursor development rule files under .cursor/rules based on PRD 003 and the Signal Lab PRDs, without committing or finishing the task."
 sections:
