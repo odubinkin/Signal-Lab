@@ -1,10 +1,11 @@
 ---
 id: "202604271647-WS7ZCH"
 title: "Exit backend on DB bootstrap failure with Sentry capture"
-status: "DOING"
+result_summary: "Fail-fast backend startup on DB init failure with Sentry reporting"
+status: "DONE"
 priority: "med"
 owner: "CODER"
-revision: 5
+revision: 6
 origin:
   system: "manual"
 depends_on: []
@@ -21,11 +22,16 @@ verification:
   updated_at: "2026-04-27T16:48:33.849Z"
   updated_by: "CODER"
   note: "Implemented fail-fast bootstrap handling: DB/startup errors are captured to Sentry, flushed, and process exits with code 1; backend typecheck and unit tests passed."
-commit: null
+commit:
+  hash: "613603811727f27c0fcb1983e94d34caff4cc7f1"
+  message: "🐛 backend: fail fast on DB bootstrap failure"
 comments:
   -
     author: "CODER"
     body: "Start: Investigate backend bootstrap path, implement fail-fast DB startup behavior with Sentry capture, then verify with focused checks."
+  -
+    author: "CODER"
+    body: "Verified: backend now fails fast on startup DB connection errors by reporting to Sentry and terminating with exit code 1; targeted validation passed."
 events:
   -
     type: "status"
@@ -40,8 +46,15 @@ events:
     author: "CODER"
     state: "ok"
     note: "Implemented fail-fast bootstrap handling: DB/startup errors are captured to Sentry, flushed, and process exits with code 1; backend typecheck and unit tests passed."
+  -
+    type: "status"
+    at: "2026-04-27T16:49:07.787Z"
+    author: "CODER"
+    from: "DOING"
+    to: "DONE"
+    note: "Verified: backend now fails fast on startup DB connection errors by reporting to Sentry and terminating with exit code 1; targeted validation passed."
 doc_version: 3
-doc_updated_at: "2026-04-27T16:48:33.858Z"
+doc_updated_at: "2026-04-27T16:49:07.787Z"
 doc_updated_by: "CODER"
 description: "If backend cannot connect to DB during startup, capture error to Sentry and terminate process with non-zero exit code instead of staying alive."
 sections:
