@@ -22,12 +22,13 @@ After ZSYN45, frontend fails on docker compose up with 'Next.js inferred your wo
 <details>
 <summary>Raw evidence</summary>
 
-- Updated: 2026-04-27T10:23:03.573Z
+- Updated: 2026-04-27T10:23:48.061Z
 - Branch: task/202604270959-3HJEXZ/fix-turbopack-root
-- Head: 415cb149dedc
+- Head: 2044167c32fb
 
 ```text
-No changes detected.
+ docker-compose.yml | 1 -
+ 1 file changed, 1 deletion(-)
 ```
 
 </details>
