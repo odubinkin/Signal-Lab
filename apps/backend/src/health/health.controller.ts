@@ -3,7 +3,13 @@ import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('health')
 @Controller('health')
+/**
+ * Provides a lightweight liveness endpoint for the backend process.
+ */
 export class HealthController {
+  /**
+   * Returns a static health status with the server-side response timestamp.
+   */
   @Get()
   @ApiOkResponse({
     schema: {

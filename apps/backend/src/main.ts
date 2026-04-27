@@ -6,6 +6,10 @@ import { AppModule } from './app.module';
 import { GlobalExceptionFilter } from './shared/global-exception.filter';
 import { JsonLogger } from './shared/json-logger.service';
 
+/**
+ * Creates and starts the Nest backend with production-equivalent middleware,
+ * validation, logging, exception handling, Swagger, and optional Sentry setup.
+ */
 async function bootstrap(): Promise<void> {
   const sentryDsn = process.env.SENTRY_DSN;
   if (sentryDsn) {

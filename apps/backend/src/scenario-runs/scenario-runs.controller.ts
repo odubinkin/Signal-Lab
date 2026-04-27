@@ -5,9 +5,22 @@ import { ScenarioRunsService } from './scenario-runs.service';
 
 @ApiTags('scenarios')
 @Controller('scenarios')
+/**
+ * HTTP controller for scenario execution demos.
+ *
+ * The controller stays thin so validation, persistence, metrics, and logging
+ * behavior remain centralized in {@link ScenarioRunsService}.
+ */
 export class ScenarioRunsController {
   constructor(private readonly scenarioRuns: ScenarioRunsService) {}
 
+  /**
+   * Executes a scenario and returns the persisted run summary when the scenario
+   * completes successfully.
+   *
+   * Error scenarios deliberately throw typed HTTP exceptions after recording
+   * their run, allowing the frontend to exercise global error handling.
+   */
   @Post('run')
   @HttpCode(200)
   @ApiOkResponse({

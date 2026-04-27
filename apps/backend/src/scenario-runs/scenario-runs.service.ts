@@ -13,9 +13,19 @@ type ScenarioRunResponse = {
   duration: number;
 };
 
+/**
+ * Pauses execution for latency demo scenarios.
+ *
+ * The helper is module-scoped so tests can drive the delay through
+ * SLOW_REQUEST_TIMEOUT_MS without exposing timing controls on the service API.
+ */
 const wait = (ms: number): Promise<void> => new Promise((resolve) => setTimeout(resolve, ms));
 
 @Injectable()
+/**
+ * Coordinates scenario execution, persistence, telemetry, and intentional
+ * error paths for the demo API.
+ */
 export class ScenarioRunsService {
   constructor(
     private readonly prisma: PrismaService,
@@ -23,6 +33,14 @@ export class ScenarioRunsService {
     private readonly logger: JsonLogger
   ) {}
 
+  /**
+   * Runs the requested scenario and returns a persisted run summary for
+   * successful outcomes.
+   *
+   * Intentional error scenarios are still persisted and recorded before their
+   * HTTP exceptions are thrown, preserving observability parity across success
+   * and failure flows.
+   */
   async run(dto: RunScenarioDto): Promise<ScenarioRunResponse> {
     const startedAt = Date.now();
 
@@ -64,6 +82,9 @@ export class ScenarioRunsService {
     };
   }
 
+  /**
+   * Persists a scenario run with JSON-safe metadata and optional error detail.
+   */
   private async persist(
     dto: RunScenarioDto,
     status: string,
@@ -83,6 +104,13 @@ export class ScenarioRunsService {
     });
   }
 
+  /**
+   * Merges caller metadata, scenario-specific fields, and the optional display
+   * name into the Prisma JSON shape.
+   *
+   * Returns undefined when there is no JSON payload to avoid storing empty
+   * objects for runs without useful metadata.
+   */
   private buildMetadata(dto: RunScenarioDto, extraMetadata: Record<string, unknown>): Prisma.InputJsonObject | undefined {
     const metadata = this.toJsonObject({
       ...(dto.metadata ?? {}),
@@ -93,6 +121,10 @@ export class ScenarioRunsService {
     return Object.keys(metadata).length > 0 ? metadata : undefined;
   }
 
+  /**
+   * Converts a loose record into Prisma JSON input, dropping unsupported values
+   * such as undefined, functions, and symbols.
+   */
   private toJsonObject(value: Record<string, unknown>): Prisma.InputJsonObject {
     return Object.fromEntries(
       Object.entries(value)
@@ -101,6 +133,13 @@ export class ScenarioRunsService {
     );
   }
 
+  /**
+   * Recursively narrows unknown values to Prisma JSON input values.
+   *
+   * Arrays and objects are preserved after unsupported nested values are
+   * removed, which keeps useful diagnostic context without risking Prisma JSON
+   * serialization errors.
+   */
   private toJsonValue(value: unknown): Prisma.InputJsonValue | undefined {
     if (typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean') {
       return value;
@@ -117,6 +156,12 @@ export class ScenarioRunsService {
     return undefined;
   }
 
+  /**
+   * Reads the slow-request delay from the environment with a safe default.
+   *
+   * Invalid or negative values fall back to five seconds so the demo remains
+   * deterministic even when configuration is malformed.
+   */
   private getSlowRequestTimeoutMs(): number {
     const rawValue = process.env.SLOW_REQUEST_TIMEOUT_MS;
     const parsedValue = rawValue ? Number(rawValue) : 5000;
@@ -128,6 +173,12 @@ export class ScenarioRunsService {
     return parsedValue;
   }
 
+  /**
+   * Emits metrics and structured logs for the completed scenario outcome.
+   *
+   * The HTTP status label mirrors the exception that callers observe, while
+   * success and slow-warning scenarios both map to the 200 response path.
+   */
   private record(level: LogLevel, scenarioType: string, scenarioId: string, status: string, duration: number, error?: string): void {
     this.metrics.recordScenario(scenarioType, status, duration);
     this.metrics.recordHttp('POST', '/api/scenarios/run', status === 'success' || status === 'slow_warning' ? 200 : status === 'teapot' ? 418 : status === 'validation_error' ? 400 : 500);

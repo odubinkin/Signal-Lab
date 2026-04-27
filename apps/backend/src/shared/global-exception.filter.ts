@@ -16,9 +16,19 @@ type TeapotBody = {
 };
 
 @Catch()
+/**
+ * Normalizes uncaught and HTTP exceptions into the backend error response
+ * contract.
+ *
+ * Server errors are reported to Sentry, while intentional client/demo errors
+ * are logged at warning level and returned with their original status code.
+ */
 export class GlobalExceptionFilter implements ExceptionFilter {
   constructor(private readonly logger: JsonLogger) {}
 
+  /**
+   * Converts an exception into the JSON response shape expected by clients.
+   */
   catch(exception: unknown, host: ArgumentsHost): void {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
@@ -49,6 +59,10 @@ export class GlobalExceptionFilter implements ExceptionFilter {
     response.status(status).json(body);
   }
 
+  /**
+   * Extracts the most useful message from Nest HTTP exception bodies and
+   * generic Error instances.
+   */
   private resolveMessage(exceptionResponse: unknown, exception: unknown): string | string[] {
     if (typeof exceptionResponse === 'object' && exceptionResponse !== null && 'message' in exceptionResponse) {
       const message = (exceptionResponse as { message: unknown }).message;
@@ -64,6 +78,9 @@ export class GlobalExceptionFilter implements ExceptionFilter {
     return 'Internal server error';
   }
 
+  /**
+   * Detects the custom teapot payload that should be passed through unchanged.
+   */
   private isTeapotBody(value: unknown): value is TeapotBody {
     return (
       typeof value === 'object' &&

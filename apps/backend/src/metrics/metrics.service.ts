@@ -2,6 +2,12 @@ import { Injectable } from '@nestjs/common';
 import { Counter, Histogram, Registry, collectDefaultMetrics } from 'prom-client';
 
 @Injectable()
+/**
+ * Owns the Prometheus registry and application-specific counters.
+ *
+ * A private registry keeps tests and repeated Nest application instances from
+ * colliding with prom-client's default global registry.
+ */
 export class MetricsService {
   private readonly registry = new Registry();
   private readonly scenarioRunsTotal: Counter<'type' | 'status'>;
@@ -31,19 +37,31 @@ export class MetricsService {
     });
   }
 
+  /**
+   * Records a scenario run count and duration observation.
+   */
   recordScenario(type: string, status: string, durationMs: number): void {
     this.scenarioRunsTotal.inc({ type, status });
     this.scenarioRunDurationSeconds.observe({ type }, durationMs / 1000);
   }
 
+  /**
+   * Records the HTTP response status emitted for a backend endpoint.
+   */
   recordHttp(method: string, path: string, statusCode: number): void {
     this.httpRequestsTotal.inc({ method, path, status_code: String(statusCode) });
   }
 
+  /**
+   * Renders the current registry in Prometheus text exposition format.
+   */
   async render(): Promise<string> {
     return this.registry.metrics();
   }
 
+  /**
+   * Returns the content type expected by Prometheus-compatible scrapers.
+   */
   contentType(): string {
     return this.registry.contentType;
   }
