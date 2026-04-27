@@ -1,10 +1,11 @@
 ---
 id: "202604270743-2G1NNK"
 title: "Build frontend observability demo"
-status: "DOING"
+result_summary: "integrate: merge task/202604270743-2G1NNK/frontend-observability-demo"
+status: "DONE"
 priority: "med"
 owner: "CODER"
-revision: 7
+revision: 8
 origin:
   system: "manual"
 depends_on: []
@@ -21,11 +22,16 @@ verification:
   updated_at: "2026-04-27T08:24:21.240Z"
   updated_by: "CODER"
   note: "Updated .env.example with backend/frontend sections and variable purpose comments."
-commit: null
+commit:
+  hash: "45f89a7ef001c19b215a0d3d50ffc62e8b3517e0"
+  message: "🔀 2G1NNK integrate: Build frontend observability demo"
 comments:
   -
     author: "CODER"
     body: "Start: Implementing approved frontend observability demo in the dedicated task worktree, with minimal backend support only for required run history."
+  -
+    author: "INTEGRATOR"
+    body: "Verified: Integrated via merge; verify=skipped(no commands); pr=.agentplane/tasks/202604270743-2G1NNK/pr."
 events:
   -
     type: "status"
@@ -52,9 +58,16 @@ events:
     author: "CODER"
     state: "ok"
     note: "Updated .env.example with backend/frontend sections and variable purpose comments."
+  -
+    type: "status"
+    at: "2026-04-27T08:44:52.731Z"
+    author: "INTEGRATOR"
+    from: "DOING"
+    to: "DONE"
+    note: "Verified: Integrated via merge; verify=skipped(no commands); pr=.agentplane/tasks/202604270743-2G1NNK/pr."
 doc_version: 3
-doc_updated_at: "2026-04-27T08:24:21.250Z"
-doc_updated_by: "CODER"
+doc_updated_at: "2026-04-27T08:44:52.735Z"
+doc_updated_by: "INTEGRATOR"
 description: "Implement the Signal Lab frontend from PRD 001 and PRD 002 using Next.js scaffold utilities, Tailwind, shadcn-style UI, TanStack Query, and React Hook Form. Add only minimal backend/API support required for frontend run history."
 sections:
   Summary: |-

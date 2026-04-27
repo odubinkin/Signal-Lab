@@ -2,12 +2,16 @@
   "base": "main",
   "branch": "task/202604270743-2G1NNK/frontend-observability-demo",
   "created_at": "2026-04-27T07:43:46.105Z",
-  "head_sha": "12454739d5ec13af43fe568c2fb17d91949b7514",
+  "head_sha": "6cd42d46c1892cfa9e91b1473b7fdcbcb69e486d",
   "last_verified_at": "2026-04-27T08:24:21.240Z",
   "last_verified_sha": "ef9119d62c830d260563e1a9a0305b0bce3c2ac6",
+  "merge_commit": "45f89a7ef001c19b215a0d3d50ffc62e8b3517e0",
+  "merge_strategy": "merge",
+  "merged_at": "2026-04-27T08:44:52.534Z",
   "schema_version": 1,
+  "status": "MERGED",
   "task_id": "202604270743-2G1NNK",
-  "updated_at": "2026-04-27T08:24:30.531Z",
+  "updated_at": "2026-04-27T08:44:52.534Z",
   "verify": {
     "status": "pass"
   }

@@ -1,7 +1,11 @@
- .agentplane/WORKFLOW.md                            |     4 +-
- .agentplane/config.json                            |     2 +-
- .agentplane/tasks/202604270736-7VG1HV/README.md    |   168 +
- .agentplane/workflows/last-known-good.md           |     4 +-
+ .agentplane/tasks/202604270743-2G1NNK/README.md    |   217 +
+ .../tasks/202604270743-2G1NNK/pr/diffstat.txt      |    43 +
+ .../tasks/202604270743-2G1NNK/pr/github-body.md    |    75 +
+ .../tasks/202604270743-2G1NNK/pr/github-title.txt  |     1 +
+ .agentplane/tasks/202604270743-2G1NNK/pr/meta.json |    14 +
+ .../tasks/202604270743-2G1NNK/pr/notes.jsonl       |     0
+ .agentplane/tasks/202604270743-2G1NNK/pr/review.md |    99 +
+ .../tasks/202604270743-2G1NNK/pr/verify.log        |     0
  .env.example                                       |    29 +-
  README.md                                          |    10 +-
  .../src/scenario-runs/scenario-runs.controller.ts  |    23 +-
@@ -40,4 +44,4 @@
  docker-compose.yml                                 |    25 +-
  package-lock.json                                  | 19785 ++++++++++++-------
  package.json                                       |     3 +
- 42 files changed, 14390 insertions(+), 6995 deletions(-)
+ 46 files changed, 14666 insertions(+), 6990 deletions(-)
