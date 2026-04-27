@@ -22,16 +22,16 @@ Implement the Signal Lab frontend from PRD 001 and PRD 002 using Next.js scaffol
 <details>
 <summary>Raw evidence</summary>
 
-- Updated: 2026-04-27T08:09:36.722Z
+- Updated: 2026-04-27T08:24:30.531Z
 - Branch: task/202604270743-2G1NNK/frontend-observability-demo
-- Head: ef9119d62c83
+- Head: 12454739d5ec
 
 ```text
  .agentplane/WORKFLOW.md                            |     4 +-
  .agentplane/config.json                            |     2 +-
  .agentplane/tasks/202604270736-7VG1HV/README.md    |   168 +
  .agentplane/workflows/last-known-good.md           |     4 +-
- .env.example                                       |     3 +
+ .env.example                                       |    29 +-
  README.md                                          |    10 +-
  .../src/scenario-runs/scenario-runs.controller.ts  |    23 +-
  .../src/scenario-runs/scenario-runs.int-spec.ts    |    39 +-
@@ -69,7 +69,7 @@ Implement the Signal Lab frontend from PRD 001 and PRD 002 using Next.js scaffol
  docker-compose.yml                                 |    25 +-
  package-lock.json                                  | 19785 ++++++++++++-------
  package.json                                       |     3 +
- 42 files changed, 14365 insertions(+), 6994 deletions(-)
+ 42 files changed, 14390 insertions(+), 6995 deletions(-)
 ```
 
 </details>
