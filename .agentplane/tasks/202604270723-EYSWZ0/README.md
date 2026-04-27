@@ -5,7 +5,7 @@ result_summary: "Added English JSDoc across backend modules; added Jest/Supertes
 status: "DONE"
 priority: "med"
 owner: "CODER"
-revision: 6
+revision: 7
 origin:
   system: "manual"
 depends_on: []
@@ -23,12 +23,15 @@ verification:
   updated_by: "CODER"
   note: "Command: npm run test -w apps/backend; Result: pass; Evidence: 2 suites and 13 tests passed. Command: npm run typecheck -w apps/backend; Result: pass; Evidence: tsc --noEmit completed successfully. Command: npm run backend:build; Result: pass; Evidence: nest build completed successfully. Command: npm run lint -w apps/backend; Result: pass; Evidence: eslint completed with no findings after adding backend flat config. Scope: backend JSDoc, test tooling, unit and integration scenario coverage."
 commit:
-  hash: "46bfbd3cab5da09116915c25afa2ebf1e8bce702"
-  message: "✅ VTNZM7 close: Done (202604270643-VTNZM7) [code]"
+  hash: "70bc388e3877a64cf6cfcbcc0cacb9e24105673a"
+  message: "✨ EYSWZ0 task: document backend and add scenario tests"
 comments:
   -
     author: "CODER"
     body: "Start: Implementing approved backend JSDoc coverage and unit/integration tests for the scenario API without changing runtime behavior."
+  -
+    author: "CODER"
+    body: "Verified: Backend JSDoc coverage, Jest/Supertest test tooling, unit and integration scenario tests, typecheck, build, and lint all completed successfully."
   -
     author: "CODER"
     body: "Verified: Backend JSDoc coverage, Jest/Supertest test tooling, unit and integration scenario tests, typecheck, build, and lint all completed successfully."
@@ -53,8 +56,15 @@ events:
     from: "DOING"
     to: "DONE"
     note: "Verified: Backend JSDoc coverage, Jest/Supertest test tooling, unit and integration scenario tests, typecheck, build, and lint all completed successfully."
+  -
+    type: "status"
+    at: "2026-04-27T07:30:14.035Z"
+    author: "CODER"
+    from: "DONE"
+    to: "DONE"
+    note: "Verified: Backend JSDoc coverage, Jest/Supertest test tooling, unit and integration scenario tests, typecheck, build, and lint all completed successfully."
 doc_version: 3
-doc_updated_at: "2026-04-27T07:29:20.399Z"
+doc_updated_at: "2026-04-27T07:30:14.036Z"
 doc_updated_by: "CODER"
 description: "Add detailed English JSDoc comments across backend code and introduce unit/integration tests for backend scenario behavior."
 sections:
