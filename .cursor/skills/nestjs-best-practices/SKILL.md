@@ -1,63 +1,33 @@
 ---
 name: nestjs-best-practices
-description: Use when designing, implementing, or reviewing NestJS services. Focus on modular architecture, DTO validation, configuration hygiene, security middleware order, data access boundaries, and testing.
+description: Use when implementing or reviewing NestJS services. Keeps core context compact and loads focused modules for architecture, validation/config, and security/lifecycle/testing.
 ---
 
-Use this skill when tasks involve NestJS architecture, API contracts, module design, validation, security hardening, or service reliability.
+Use this skill for any non-trivial NestJS task.
 
-## Working Approach
+## Module Loading Rules
 
-1. Clarify module boundaries and ownership.
-2. Define DTO contracts before controller/service implementation.
-3. Enforce runtime validation and transformation at the boundary.
-4. Apply security and configuration guardrails early in bootstrap.
-5. Add or update tests for changed behavior.
+1. If the task affects module boundaries, dependency flow, controller/service responsibilities, or error contracts:
+- Load `references/architecture-and-error-contracts.md`
 
-## Architecture and Modules
+2. If the task affects DTOs, pipes, request validation, config, env handling, or startup safety:
+- Load `references/validation-and-configuration.md`
 
-- Keep modules cohesive by domain and avoid cross-module leakage.
-- Use controllers for transport concerns, services for business logic, and providers for shared infrastructure.
-- Favor dependency injection over static/global helpers.
-- Keep external integrations behind dedicated gateway/provider abstractions.
+3. If the task affects security middleware order, CORS/CSRF/rate-limits, request lifecycle behavior, testing, or observability:
+- Load `references/security-lifecycle-and-testing.md`
 
-## DTOs and Validation
+4. For cross-cutting changes:
+- Load modules incrementally in the order above and stop at sufficiency.
 
-- Use DTO classes for all request payloads and query params.
-- Enable global `ValidationPipe` with strict options (for example whitelist and transformation behavior) unless project policy requires otherwise.
-- Validate all untrusted input at the system boundary.
-- Return clear, stable API error shapes for validation failures.
+## Execution Contract
 
-## Configuration and Environment
+- Enforce boundary validation and explicit error contracts.
+- Keep transport, domain logic, and infrastructure concerns separated.
+- Apply security middleware and guards in correct lifecycle order.
+- Verify with focused unit/integration/e2e checks for changed behavior.
 
-- Use `@nestjs/config` and typed config access patterns.
-- Validate required environment variables at startup.
-- Keep secrets in environment/runtime secret stores, not source files.
-- Fail fast on invalid critical configuration.
+## Output Requirements
 
-## Security and Middleware Order
-
-- Apply security middleware (for example Helmet) before route registration side effects.
-- Configure CORS explicitly; do not leave permissive defaults in production paths.
-- Ensure authentication and authorization are enforced for protected routes.
-- Keep rate-limiting and abuse controls aligned with endpoint sensitivity.
-
-## Data and Persistence Boundaries
-
-- Keep ORM/database access in dedicated services (for example Prisma service wrappers).
-- Keep transactions explicit for multi-step writes.
-- Avoid leaking persistence-layer models directly as public API contracts when transformation is needed.
-- Model idempotency for retry-prone write paths.
-
-## Testing and Verification
-
-- Maintain a mix of unit and integration/e2e tests for changed modules.
-- Use Nest testing utilities (`@nestjs/testing`) for module-level tests.
-- Verify success and failure paths, including validation and auth failures.
-- Run lint/type/test before considering task completion.
-
-## Common Anti-Patterns
-
-- Putting business logic directly in controllers.
-- Skipping global validation and depending on ad-hoc checks.
-- Accessing `process.env` across the codebase instead of centralized config.
-- Applying security middleware after route setup where it no longer protects earlier routes.
+- Describe module boundary decisions.
+- Document validation/security settings changed.
+- Provide concrete verification outcomes, including failure-path checks.
