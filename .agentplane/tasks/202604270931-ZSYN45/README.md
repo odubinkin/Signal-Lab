@@ -1,10 +1,11 @@
 ---
 id: "202604270931-ZSYN45"
 title: "Switch dev containers to Dockerfile.dev with anonymous node_modules volumes"
-status: "DOING"
+result_summary: "integrate: merge task/202604270931-ZSYN45/docker-dev-hotreload"
+status: "DONE"
 priority: "med"
 owner: "CODER"
-revision: 7
+revision: 8
 origin:
   system: "manual"
 depends_on: []
@@ -21,11 +22,16 @@ verification:
   updated_at: "2026-04-27T09:50:17.474Z"
   updated_by: "CODER"
   note: "Variant 2 implemented and verified: Dockerfile.dev for backend and frontend bake npm ci into the image; docker-compose backend/frontend now use build: + anonymous volumes /workspace/node_modules and per-service /workspace/apps/<svc>/node_modules. Removed shared named volumes root_node_modules/backend_node_modules/frontend_node_modules. Backend reaches healthy on first probe; Nest watcher detects source bind-mount changes and triggers incremental rebuild + restart (procps added to backend image because nest --watch shells out to ps). Frontend (Next.js 16 Turbopack) is Ready in 445ms and responds 200 on /. ENOTEMPTY race is structurally impossible because npm install no longer runs at container startup. Lockfile fix (fsevents marked as dev) bundled per user request."
-commit: null
+commit:
+  hash: "5ab050439796a38fa9f57f69977a4ec715d3250b"
+  message: "🔀 ZSYN45 integrate: Switch dev containers to Dockerfile.dev with anonymous node_modules volumes"
 comments:
   -
     author: "CODER"
     body: "Start: implementing Variant 2 — adding Dockerfile.dev for backend and frontend services, switching docker-compose to build: instead of inline npm install, replacing shared root_node_modules named volume with anonymous volumes per service to keep hot reload while removing ENOTEMPTY race."
+  -
+    author: "INTEGRATOR"
+    body: "Verified: Integrated via merge; verify=skipped(no commands); pr=.agentplane/tasks/202604270931-ZSYN45/pr."
 events:
   -
     type: "status"
@@ -40,9 +46,16 @@ events:
     author: "CODER"
     state: "ok"
     note: "Variant 2 implemented and verified: Dockerfile.dev for backend and frontend bake npm ci into the image; docker-compose backend/frontend now use build: + anonymous volumes /workspace/node_modules and per-service /workspace/apps/<svc>/node_modules. Removed shared named volumes root_node_modules/backend_node_modules/frontend_node_modules. Backend reaches healthy on first probe; Nest watcher detects source bind-mount changes and triggers incremental rebuild + restart (procps added to backend image because nest --watch shells out to ps). Frontend (Next.js 16 Turbopack) is Ready in 445ms and responds 200 on /. ENOTEMPTY race is structurally impossible because npm install no longer runs at container startup. Lockfile fix (fsevents marked as dev) bundled per user request."
+  -
+    type: "status"
+    at: "2026-04-27T09:54:00.091Z"
+    author: "INTEGRATOR"
+    from: "DOING"
+    to: "DONE"
+    note: "Verified: Integrated via merge; verify=skipped(no commands); pr=.agentplane/tasks/202604270931-ZSYN45/pr."
 doc_version: 3
-doc_updated_at: "2026-04-27T09:50:17.485Z"
-doc_updated_by: "CODER"
+doc_updated_at: "2026-04-27T09:54:00.095Z"
+doc_updated_by: "INTEGRATOR"
 description: "Replace inline npm install in docker-compose backend/frontend services with dedicated Dockerfile.dev images that bake npm ci. Use anonymous volumes for node_modules to preserve hot reload via source bind-mount while eliminating ENOTEMPTY race in the shared root_node_modules named volume."
 sections:
   Summary: |-
