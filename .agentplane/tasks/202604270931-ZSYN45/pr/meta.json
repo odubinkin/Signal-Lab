@@ -1,0 +1,14 @@
+{
+  "base": "main",
+  "branch": "task/202604270931-ZSYN45/docker-dev-hotreload",
+  "created_at": "2026-04-27T09:32:47.147Z",
+  "head_sha": "d99be4c73b9829cd30a71cf3ae5248e34f8b315f",
+  "last_verified_at": "2026-04-27T09:50:17.474Z",
+  "last_verified_sha": "fecadb244c9d2751a2464fd8a797f42885d7e3e7",
+  "schema_version": 1,
+  "task_id": "202604270931-ZSYN45",
+  "updated_at": "2026-04-27T09:50:53.792Z",
+  "verify": {
+    "status": "pass"
+  }
+}
