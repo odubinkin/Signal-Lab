@@ -1,0 +1,35 @@
+{
+  "executionId": "2026-04-28-00-00",
+  "prdPath": "prds/004_prd-orchestrator.md",
+  "status": "in_progress",
+  "currentPhase": "analysis",
+  "startedAt": "2026-04-28T00:00:00.000Z",
+  "updatedAt": "2026-04-28T00:00:00.000Z",
+  "scope": {
+    "include": [
+      "full_prd"
+    ],
+    "exclude": []
+  },
+  "signal": 42,
+  "phases": {
+    "analysis": { "status": "pending", "result": "" },
+    "codebase": { "status": "pending", "result": "" },
+    "planning": { "status": "pending", "result": "" },
+    "decomposition": { "status": "pending", "result": "" },
+    "implementation": {
+      "status": "pending",
+      "completedTasks": 0,
+      "failedTasks": 0,
+      "totalTasks": 0,
+      "retries": 0
+    },
+    "review": { "status": "pending", "result": "" },
+    "report": { "status": "pending", "result": "" }
+  },
+  "modelUsage": {
+    "fast": 0,
+    "default": 0
+  },
+  "tasks": []
+}
