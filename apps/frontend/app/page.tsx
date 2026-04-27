@@ -38,13 +38,15 @@ export default function Home() {
   const healthQuery = useQuery({
     queryKey: ["health"],
     queryFn: getHealth,
-    refetchInterval: 15000,
+    refetchInterval: 3000,
+    retry: true,
   });
 
   const runsQuery = useQuery({
     queryKey: ["scenario-runs"],
     queryFn: getScenarioRuns,
     refetchInterval: 5000,
+    retry: true,
   });
 
   const runMutation = useMutation({
@@ -70,6 +72,7 @@ export default function Home() {
     });
   };
   const runs = runsQuery.data ?? [];
+  const apiStatus = resolveApiStatus(healthQuery);
 
   return (
     <main className="min-h-screen bg-slate-50 text-slate-950">
@@ -83,9 +86,9 @@ export default function Home() {
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-2">
-            <Badge className={healthQuery.data?.status === "ok" ? "bg-emerald-100 text-emerald-800" : "bg-rose-100 text-rose-800"}>
+            <Badge className={apiStatus.className}>
               <Server className="size-3" />
-              API {healthQuery.data?.status ?? (healthQuery.isLoading ? "checking" : "offline")}
+              API {apiStatus.label}
             </Badge>
             <Button variant="outline" size="sm" onClick={() => void healthQuery.refetch()}>
               <RefreshCw className="size-4" />
@@ -161,10 +164,10 @@ export default function Home() {
               </CardAction>
             </CardHeader>
             <CardContent>
-              {runsQuery.isLoading ? (
+              {runsQuery.isLoading || (runsQuery.isError && runsQuery.isFetching) ? (
                 <div className="flex h-48 items-center justify-center text-sm text-slate-500">Loading runs...</div>
               ) : runsQuery.isError ? (
-                <div className="flex h-48 items-center justify-center text-sm text-rose-700">Run history is unavailable.</div>
+                <div className="flex h-48 items-center justify-center text-sm text-amber-700">Waiting for backend history endpoint...</div>
               ) : runs.length === 0 ? (
                 <div className="flex h-48 items-center justify-center text-sm text-slate-500">No scenario runs yet.</div>
               ) : (
@@ -233,6 +236,18 @@ function StatusBadge({ status }: { status: string }) {
   }
 
   return <Badge className="w-fit bg-rose-100 text-rose-800">{status}</Badge>;
+}
+
+function resolveApiStatus(healthQuery: { data?: { status?: string }; isLoading: boolean; isFetching: boolean }) {
+  if (healthQuery.data?.status === "ok") {
+    return { label: "ok", className: "bg-emerald-100 text-emerald-800" };
+  }
+
+  if (healthQuery.isLoading || healthQuery.isFetching) {
+    return { label: "checking", className: "bg-amber-100 text-amber-800" };
+  }
+
+  return { label: "offline", className: "bg-rose-100 text-rose-800" };
 }
 
 function formatTimestamp(value: string) {

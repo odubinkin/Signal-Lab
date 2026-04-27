@@ -12,7 +12,7 @@ Implement the Signal Lab frontend from PRD 001 and PRD 002 using Next.js scaffol
 ## Verification
 
 - State: ok
-- Note: Implemented frontend observability demo and minimal run-history API; local lint, build, backend focused tests, compose config, and Playwright render check completed.
+- Note: Fixed compose readiness and frontend retry/loading behavior for startup and run history.
 - Full verification checklist lives in local review.md.
 
 ## Handoff Notes

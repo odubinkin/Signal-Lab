@@ -4,7 +4,7 @@ title: "Build frontend observability demo"
 status: "DOING"
 priority: "med"
 owner: "CODER"
-revision: 5
+revision: 6
 origin:
   system: "manual"
 depends_on: []
@@ -18,9 +18,9 @@ plan_approval:
   note: null
 verification:
   state: "ok"
-  updated_at: "2026-04-27T07:54:49.023Z"
+  updated_at: "2026-04-27T08:09:11.070Z"
   updated_by: "CODER"
-  note: "Implemented frontend observability demo and minimal run-history API; local lint, build, backend focused tests, compose config, and Playwright render check completed."
+  note: "Fixed compose readiness and frontend retry/loading behavior for startup and run history."
 commit: null
 comments:
   -
@@ -40,8 +40,14 @@ events:
     author: "CODER"
     state: "ok"
     note: "Implemented frontend observability demo and minimal run-history API; local lint, build, backend focused tests, compose config, and Playwright render check completed."
+  -
+    type: "verify"
+    at: "2026-04-27T08:09:11.070Z"
+    author: "CODER"
+    state: "ok"
+    note: "Fixed compose readiness and frontend retry/loading behavior for startup and run history."
 doc_version: 3
-doc_updated_at: "2026-04-27T07:54:49.027Z"
+doc_updated_at: "2026-04-27T08:09:11.094Z"
 doc_updated_by: "CODER"
 description: "Implement the Signal Lab frontend from PRD 001 and PRD 002 using Next.js scaffold utilities, Tailwind, shadcn-style UI, TanStack Query, and React Hook Form. Add only minimal backend/API support required for frontend run history."
 sections:
@@ -82,6 +88,23 @@ sections:
     Command: npm run test:integration -w apps/backend -- scenario-runs.int-spec.ts | Result: pass | Evidence: 9 tests passed | Scope: HTTP endpoints including GET /api/scenarios/runs.
     Command: docker compose config --quiet | Result: pass | Evidence: compose config exited 0 | Scope: Docker Compose syntax.
     Command: Playwright navigate http://127.0.0.1:3000 | Result: pass | Evidence: page title Signal Lab; scenario form, history panel, API badge, observability links rendered. Backend was not running during this visual check, so browser console showed expected connection refused fetches.
+    
+    ### 2026-04-27T08:09:11.070Z — VERIFY — ok
+    
+    By: CODER
+    
+    Note: Fixed compose readiness and frontend retry/loading behavior for startup and run history.
+    
+    VerifyStepsRef: doc_version=3, doc_updated_at=2026-04-27T07:54:49.027Z, excerpt_hash=sha256:0c911ba57bbda86e6b1d4b2c31f39ff10ccc1febf923fdb7f66dbb574080a0d7
+    
+    Details:
+    
+    Command: npm run frontend:lint | Result: pass | Evidence: eslint exited 0 | Scope: frontend readiness/history UI changes.
+    Command: npm run frontend:build | Result: pass | Evidence: Next.js compiled and typechecked successfully | Scope: frontend production build after health/status changes.
+    Command: docker compose config --quiet | Result: pass | Evidence: compose config exited 0 | Scope: backend healthcheck, frontend depends_on, host port configuration.
+    Command: POSTGRES_PORT=55432 BACKEND_HOST_PORT=3301 NEXT_PUBLIC_API_BASE_URL=http://localhost:3301/api docker compose up -d | Result: pass | Evidence: postgres healthy, backend healthy, frontend started only after backend health | Scope: real compose startup behavior with alternate host ports due local conflicts.
+    Command: curl http://localhost:3301/api/health && curl http://localhost:3301/api/scenarios/runs && POST /api/scenarios/run then GET /api/scenarios/runs | Result: pass | Evidence: health returned ok; history returned [] initially and then the persisted success run | Scope: backend history endpoint.
+    Command: Playwright goto http://localhost:3000 | Result: pass | Evidence: page text showed API ok and Run History contained the success entry | Scope: browser-visible frontend history integration.
     
     <!-- END VERIFICATION RESULTS -->
   Rollback Plan: |-
@@ -136,6 +159,23 @@ Command: npm run test:unit -w apps/backend -- scenario-runs.service.spec.ts | Re
 Command: npm run test:integration -w apps/backend -- scenario-runs.int-spec.ts | Result: pass | Evidence: 9 tests passed | Scope: HTTP endpoints including GET /api/scenarios/runs.
 Command: docker compose config --quiet | Result: pass | Evidence: compose config exited 0 | Scope: Docker Compose syntax.
 Command: Playwright navigate http://127.0.0.1:3000 | Result: pass | Evidence: page title Signal Lab; scenario form, history panel, API badge, observability links rendered. Backend was not running during this visual check, so browser console showed expected connection refused fetches.
+
+### 2026-04-27T08:09:11.070Z — VERIFY — ok
+
+By: CODER
+
+Note: Fixed compose readiness and frontend retry/loading behavior for startup and run history.
+
+VerifyStepsRef: doc_version=3, doc_updated_at=2026-04-27T07:54:49.027Z, excerpt_hash=sha256:0c911ba57bbda86e6b1d4b2c31f39ff10ccc1febf923fdb7f66dbb574080a0d7
+
+Details:
+
+Command: npm run frontend:lint | Result: pass | Evidence: eslint exited 0 | Scope: frontend readiness/history UI changes.
+Command: npm run frontend:build | Result: pass | Evidence: Next.js compiled and typechecked successfully | Scope: frontend production build after health/status changes.
+Command: docker compose config --quiet | Result: pass | Evidence: compose config exited 0 | Scope: backend healthcheck, frontend depends_on, host port configuration.
+Command: POSTGRES_PORT=55432 BACKEND_HOST_PORT=3301 NEXT_PUBLIC_API_BASE_URL=http://localhost:3301/api docker compose up -d | Result: pass | Evidence: postgres healthy, backend healthy, frontend started only after backend health | Scope: real compose startup behavior with alternate host ports due local conflicts.
+Command: curl http://localhost:3301/api/health && curl http://localhost:3301/api/scenarios/runs && POST /api/scenarios/run then GET /api/scenarios/runs | Result: pass | Evidence: health returned ok; history returned [] initially and then the persisted success run | Scope: backend history endpoint.
+Command: Playwright goto http://localhost:3000 | Result: pass | Evidence: page text showed API ok and Run History contained the success entry | Scope: browser-visible frontend history integration.
 
 <!-- END VERIFICATION RESULTS -->
 
