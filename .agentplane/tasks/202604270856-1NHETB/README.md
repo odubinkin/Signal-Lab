@@ -1,10 +1,11 @@
 ---
 id: "202604270856-1NHETB"
 title: "Implement observability stack services"
-status: "DOING"
+result_summary: "integrate: squash task/202604270856-1NHETB/observability-stack"
+status: "DONE"
 priority: "med"
 owner: "CODER"
-revision: 5
+revision: 6
 origin:
   system: "manual"
 depends_on: []
@@ -21,11 +22,16 @@ verification:
   updated_at: "2026-04-27T09:05:32.197Z"
   updated_by: "CODER"
   note: "Provisioned Prometheus, Loki, Promtail, and Grafana with a Signal Lab dashboard; Prometheus scrapes the backend, Promtail ships JSON logs to Loki with parsed labels, and Grafana surfaces all three datasources and the four-panel dashboard end-to-end."
-commit: null
+commit:
+  hash: "db56803f20c6d9a6433a9cdbbf6aa86b0c4d9fb0"
+  message: "🧩 1NHETB integrate: Implement observability stack services"
 comments:
   -
     author: "CODER"
     body: "Start: Implementing observability stack services (Prometheus, Loki, Promtail, Grafana with provisioned datasources and a 3-panel dashboard) per PRD-002 sections F8 and F9 in the dedicated branch_pr worktree."
+  -
+    author: "INTEGRATOR"
+    body: "Verified: Integrated via squash; verify=skipped(no commands); pr=.agentplane/tasks/202604270856-1NHETB/pr."
 events:
   -
     type: "status"
@@ -40,9 +46,16 @@ events:
     author: "CODER"
     state: "ok"
     note: "Provisioned Prometheus, Loki, Promtail, and Grafana with a Signal Lab dashboard; Prometheus scrapes the backend, Promtail ships JSON logs to Loki with parsed labels, and Grafana surfaces all three datasources and the four-panel dashboard end-to-end."
+  -
+    type: "status"
+    at: "2026-04-27T09:07:04.049Z"
+    author: "INTEGRATOR"
+    from: "DOING"
+    to: "DONE"
+    note: "Verified: Integrated via squash; verify=skipped(no commands); pr=.agentplane/tasks/202604270856-1NHETB/pr."
 doc_version: 3
-doc_updated_at: "2026-04-27T09:05:32.204Z"
-doc_updated_by: "CODER"
+doc_updated_at: "2026-04-27T09:07:04.053Z"
+doc_updated_by: "INTEGRATOR"
 description: "Add Prometheus, Loki, Promtail, and Grafana to docker-compose with provisioned datasources and a dashboard that satisfies PRD-002 sections F8-F9 and the verification walkthrough. Backend, frontend, and Sentry/metrics/logging code already exist; this task only adds observability service config and stack wiring."
 sections:
   Summary: |-

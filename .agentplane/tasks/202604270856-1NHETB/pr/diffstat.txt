@@ -1,3 +1,11 @@
+ .agentplane/tasks/202604270856-1NHETB/README.md    | 133 +++++++++++++++++
+ .../tasks/202604270856-1NHETB/pr/diffstat.txt      |  10 ++
+ .../tasks/202604270856-1NHETB/pr/github-body.md    |  42 ++++++
+ .../tasks/202604270856-1NHETB/pr/github-title.txt  |   1 +
+ .agentplane/tasks/202604270856-1NHETB/pr/meta.json |  14 ++
+ .../tasks/202604270856-1NHETB/pr/notes.jsonl       |   0
+ .agentplane/tasks/202604270856-1NHETB/pr/review.md |  66 +++++++++
+ .../tasks/202604270856-1NHETB/pr/verify.log        |   0
  .env.example                                       |  15 ++
  README.md                                          |  38 +++++
  docker-compose.yml                                 |  85 +++++++++++
@@ -7,4 +15,4 @@
  observability/loki/loki-config.yml                 |  42 ++++++
  observability/prometheus/prometheus.yml            |  20 +++
  observability/promtail/promtail-config.yml         |  49 +++++++
- 9 files changed, 440 insertions(+)
+ 17 files changed, 706 insertions(+)

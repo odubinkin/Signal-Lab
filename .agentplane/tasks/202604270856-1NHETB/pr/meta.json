@@ -2,12 +2,16 @@
   "base": "main",
   "branch": "task/202604270856-1NHETB/observability-stack",
   "created_at": "2026-04-27T08:56:28.203Z",
-  "head_sha": "16e1142cbbc52045b37737763729f88d2295a35a",
+  "head_sha": "7bf0b6f9397b2029f955ac97a4cdce43b4932dd3",
   "last_verified_at": "2026-04-27T09:05:32.197Z",
   "last_verified_sha": "ea77a6f0d56eafb11a3485542e92b8fb9a00d18e",
+  "merge_commit": "db56803f20c6d9a6433a9cdbbf6aa86b0c4d9fb0",
+  "merge_strategy": "squash",
+  "merged_at": "2026-04-27T09:07:03.927Z",
   "schema_version": 1,
+  "status": "MERGED",
   "task_id": "202604270856-1NHETB",
-  "updated_at": "2026-04-27T09:05:54.262Z",
+  "updated_at": "2026-04-27T09:07:03.927Z",
   "verify": {
     "status": "pass"
   }
