@@ -1,10 +1,11 @@
 ---
 id: "202604270749-V61J47"
 title: "Add Cursor command prompts"
-status: "DOING"
+result_summary: "Updated .cursor/rules and .cursor/commands for best-practice guidance and Cursor-only workflows; verified via check-routing, doctor, and command/rule content checks."
+status: "DONE"
 priority: "med"
 owner: "DOCS"
-revision: 19
+revision: 20
 origin:
   system: "manual"
 depends_on: []
@@ -21,11 +22,16 @@ verification:
   updated_at: "2026-04-27T17:03:54.373Z"
   updated_by: "DOCS"
   note: "Aligned Cursor rules with best-practice structure and canonical references, removed agentplane workflow mentions from Cursor commands, and normalized command health endpoint references to /api/health. Docs-policy verification checks passed."
-commit: null
+commit:
+  hash: "6a3d3f944392c7b404765958ed67d15b1a8bea95"
+  message: "📝 cursor: align rules best practices and remove agentplane mentions"
 comments:
   -
     author: "DOCS"
     body: "Start: Add two Cursor command markdown prompts under .cursor/commands and verify the docs-only policy checks for task 202604270749-V61J47."
+  -
+    author: "DOCS"
+    body: "Verified: Cursor command set for PRD 003 R3 is complete, rules were aligned to best practices with canonical references, and command prompts are now Cursor-native without agentplane workflow coupling."
 events:
   -
     type: "status"
@@ -52,8 +58,15 @@ events:
     author: "DOCS"
     state: "ok"
     note: "Aligned Cursor rules with best-practice structure and canonical references, removed agentplane workflow mentions from Cursor commands, and normalized command health endpoint references to /api/health. Docs-policy verification checks passed."
+  -
+    type: "status"
+    at: "2026-04-27T17:04:18.856Z"
+    author: "DOCS"
+    from: "DOING"
+    to: "DONE"
+    note: "Verified: Cursor command set for PRD 003 R3 is complete, rules were aligned to best practices with canonical references, and command prompts are now Cursor-native without agentplane workflow coupling."
 doc_version: 3
-doc_updated_at: "2026-04-27T17:03:54.379Z"
+doc_updated_at: "2026-04-27T17:04:18.857Z"
 doc_updated_by: "DOCS"
 description: "Add Cursor command markdown prompts for /add-endpoint and /health-check according to PRD 003."
 sections:
