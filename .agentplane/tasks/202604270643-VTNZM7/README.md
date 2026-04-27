@@ -1,10 +1,11 @@
 ---
 id: "202604270643-VTNZM7"
 title: "Build platform foundation"
-status: "DOING"
+result_summary: "Done"
+status: "DONE"
 priority: "med"
 owner: "CODER"
-revision: 6
+revision: 7
 origin:
   system: "manual"
 depends_on: []
@@ -21,11 +22,16 @@ verification:
   updated_at: "2026-04-27T07:16:30.307Z"
   updated_by: "CODER"
   note: "Added SLOW_REQUEST_TIMEOUT_MS for slow_request with default 5000ms. Verification: npm run backend:build passed; docker compose config --quiet passed; restarted backend with SLOW_REQUEST_TIMEOUT_MS=100 and POSTGRES_PORT=55432; POST /api/scenarios/run slow_request returned 200 with status slow_warning and duration 103ms."
-commit: null
+commit:
+  hash: "cd13c5c4bed968b5283230482e67cf480bac2641"
+  message: "✨ backend: build platform foundation"
 comments:
   -
     author: "CODER"
     body: "Start: Implement approved PRD 001 platform foundation scope in direct workflow, including backend, frontend, Prisma, Docker Compose, docs, and verification evidence."
+  -
+    author: "CODER"
+    body: "Verified: backend foundation committed after npm install, Prisma generation, backend build, Docker Compose config, runtime health/scenario/swagger/metrics smoke checks, slow_request env timeout check, and database persistence check passed."
 events:
   -
     type: "status"
@@ -46,8 +52,15 @@ events:
     author: "CODER"
     state: "ok"
     note: "Added SLOW_REQUEST_TIMEOUT_MS for slow_request with default 5000ms. Verification: npm run backend:build passed; docker compose config --quiet passed; restarted backend with SLOW_REQUEST_TIMEOUT_MS=100 and POSTGRES_PORT=55432; POST /api/scenarios/run slow_request returned 200 with status slow_warning and duration 103ms."
+  -
+    type: "status"
+    at: "2026-04-27T07:20:02.670Z"
+    author: "CODER"
+    from: "DOING"
+    to: "DONE"
+    note: "Verified: backend foundation committed after npm install, Prisma generation, backend build, Docker Compose config, runtime health/scenario/swagger/metrics smoke checks, slow_request env timeout check, and database persistence check passed."
 doc_version: 3
-doc_updated_at: "2026-04-27T07:16:30.312Z"
+doc_updated_at: "2026-04-27T07:20:02.670Z"
 doc_updated_by: "CODER"
 description: "Initialize Signal Lab monorepo structure with Next.js frontend, NestJS backend, Prisma PostgreSQL schema, Docker Compose runtime, Swagger docs, and README according to PRD 001."
 sections:
