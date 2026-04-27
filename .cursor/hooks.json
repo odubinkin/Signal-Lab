@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "hooks": {
+    "afterFileEdit": [
+      {
+        "command": ".cursor/hooks/schema-change-reminder.py",
+        "timeout": 5
+      },
+      {
+        "command": ".cursor/hooks/new-endpoint-observability-reminder.py",
+        "timeout": 5
+      },
+      {
+        "command": ".cursor/hooks/api-change-reminder.py",
+        "timeout": 5
+      }
+    ],
+    "beforeShellExecution": [
+      {
+        "command": ".cursor/hooks/pre-commit-secrets-guard.py",
+        "matcher": "^git\\s+commit\\b",
+        "timeout": 10,
+        "failClosed": true
+      }
+    ]
+  }
+}

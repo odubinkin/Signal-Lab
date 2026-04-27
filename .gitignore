@@ -20,3 +20,4 @@ CLAUDE.md.bak-*
 .agentplane/agents/*.bak-*
 .agentplane/policy/**/*.bak-*
 .playwright-mcp/
+.cursor/hooks/.state/
