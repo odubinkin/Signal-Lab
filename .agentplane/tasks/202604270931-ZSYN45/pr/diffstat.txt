@@ -1,0 +1,5 @@
+ apps/backend/Dockerfile.dev  | 20 ++++++++++++++++++++
+ apps/frontend/Dockerfile.dev | 16 ++++++++++++++++
+ docker-compose.yml           | 23 ++++++++++++-----------
+ package-lock.json            |  1 +
+ 4 files changed, 49 insertions(+), 11 deletions(-)

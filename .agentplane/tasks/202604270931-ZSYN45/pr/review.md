@@ -45,12 +45,16 @@ Replace inline npm install in docker-compose backend/frontend services with dedi
 <details>
 <summary>Raw evidence</summary>
 
-- Updated: 2026-04-27T09:32:47.147Z
+- Updated: 2026-04-27T09:50:53.792Z
 - Branch: task/202604270931-ZSYN45/docker-dev-hotreload
-- Head: fecadb244c9d
+- Head: d99be4c73b98
 
 ```text
-No changes detected.
+ apps/backend/Dockerfile.dev  | 20 ++++++++++++++++++++
+ apps/frontend/Dockerfile.dev | 16 ++++++++++++++++
+ docker-compose.yml           | 23 ++++++++++++-----------
+ package-lock.json            |  1 +
+ 4 files changed, 49 insertions(+), 11 deletions(-)
 ```
 
 </details>
