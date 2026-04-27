@@ -71,7 +71,7 @@ curl -s -X POST http://localhost:3001/api/scenarios/run \
 - `validation_error` -> `400`.
 - `system_error` -> `500` + capture в Sentry (если задан `SENTRY_DSN`).
 - `slow_request` -> `200` после искусственной задержки.
-- `teapot` (пасхальный сценарий) -> `418`, тело `{ "signal": 42, "message": "I'm a teapot" }`, metadata `{ "easter": true }`.
+- `teapot` -> `418`, тело `{ "signal": 42, "message": "I'm a teapot" }`, metadata `{ "easter": true }`.
 
 Frontend использует:
 
@@ -130,44 +130,12 @@ curl -s --get 'http://localhost:3102/loki/api/v1/query_range' \
 
 Sentry опционален: задайте `SENTRY_DSN` в `.env`, иначе отправка событий отключена.
 
-## AI-слой Cursor (PRD 003)
-
-Текущая реализация в репозитории:
-
-- Rules (`.cursor/rules/`):
-  - `stack-constraints.mdc`
-  - `observability-conventions.mdc`
-  - `prisma-patterns.mdc`
-  - `frontend-patterns.mdc`
-  - `error-handling.mdc`
-- Commands (`.cursor/commands/`):
-  - `/add-endpoint`
-  - `/check-obs`
-  - `/health-check`
-  - `/run-prd`
-- Plugins (`.cursor/settings.json`):
-  - `shadcn`
-  - `prisma`
-
-Статус относительно PRD 003:
-
-- Требование по rules (>=5) выполнено.
-- Требование по commands (>=3) выполнено: сейчас 4 команды.
-- Папка `.cursor/skills/` (custom skills) отсутствует.
-- Hooks в `.cursor` не добавлены.
-- Marketplace skills (>=6) отдельно не задекларированы.
-
-## Orchestrator skill (PRD 004)
-
-Реализация добавлена в `.cursor/skills/signal-lab-orchestrator/`:
-
-- `SKILL.md` — фазовый orchestrator contract (analysis -> codebase -> planning -> decomposition -> implementation -> review -> report) c resume/retry.
-- `COORDINATION.md` — шаблоны prompt/handoff для subagent execution по фазам.
-- `EXAMPLE.md` — примеры полного запуска, scoped запуска и resume.
-- `references/context.template.json` — стартовый шаблон состояния execution.
-
 ## Остановка
 
 ```bash
 docker compose down
 ```
+
+## AI-слой Cursor и orchestrator
+
+Документация по PRD 003/004 перенесена в отдельный файл: [AI-LAYER.md](AI-LAYER.md).
