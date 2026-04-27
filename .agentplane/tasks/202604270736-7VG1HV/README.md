@@ -1,10 +1,11 @@
 ---
 id: "202604270736-7VG1HV"
 title: "Commit agentplane workflow mode switch"
-status: "DOING"
+result_summary: "Switched agentplane workflow mode from direct to branch_pr and committed the task trace."
+status: "DONE"
 priority: "med"
 owner: "DOCS"
-revision: 6
+revision: 7
 origin:
   system: "manual"
 depends_on: []
@@ -21,11 +22,16 @@ verification:
   updated_at: "2026-04-27T07:37:26.743Z"
   updated_by: "DOCS"
   note: "Verified: diff is limited to the workflow mode switch, policy routing check passed, and agentplane doctor passed with no errors or warnings."
-commit: null
+commit:
+  hash: "8141a3cf490a1a97c7821d40a33309f8186dc406"
+  message: "📝 7VG1HV task: switch agentplane workflow to branch_pr"
 comments:
   -
     author: "DOCS"
     body: "Start: Commit existing agentplane workflow mode switch after confirming the changed files are limited to config and workflow docs."
+  -
+    author: "INTEGRATOR"
+    body: "Verified: diff scope was limited to the agentplane workflow mode switch; routing and doctor checks passed before commit."
 events:
   -
     type: "status"
@@ -40,9 +46,16 @@ events:
     author: "DOCS"
     state: "ok"
     note: "Verified: diff is limited to the workflow mode switch, policy routing check passed, and agentplane doctor passed with no errors or warnings."
+  -
+    type: "status"
+    at: "2026-04-27T07:39:18.174Z"
+    author: "INTEGRATOR"
+    from: "DOING"
+    to: "DONE"
+    note: "Verified: diff scope was limited to the agentplane workflow mode switch; routing and doctor checks passed before commit."
 doc_version: 3
-doc_updated_at: "2026-04-27T07:37:26.749Z"
-doc_updated_by: "DOCS"
+doc_updated_at: "2026-04-27T07:39:18.175Z"
+doc_updated_by: "INTEGRATOR"
 description: "Commit the existing agentplane workflow mode switch from direct to branch_pr in config and workflow docs."
 sections:
   Summary: |-
