@@ -26,8 +26,9 @@ services:
       BACKEND_PORT: ${BACKEND_PORT:-3001}
       SLOW_REQUEST_TIMEOUT_MS: ${SLOW_REQUEST_TIMEOUT_MS:-5000}
       SENTRY_DSN: ${SENTRY_DSN:-}
+      SENTRY_PROJECT_SLUG: ${SENTRY_PROJECT_SLUG:-signal-lab}
     ports:
-      - "${BACKEND_HOST_PORT:-3001}:${BACKEND_PORT:-3001}"
+      - "${BACKEND_PORT:-3001}:${BACKEND_PORT:-3001}"
     volumes:
       - ./apps/backend/src:/workspace/apps/backend/src
       - ./prisma:/workspace/prisma
@@ -51,7 +52,13 @@ services:
     working_dir: /workspace
     command: sh -c "npm run dev -w apps/frontend -- --hostname 0.0.0.0 --webpack"
     environment:
-      NEXT_PUBLIC_API_BASE_URL: ${NEXT_PUBLIC_API_BASE_URL:-http://localhost:3001/api}
+      NEXT_PUBLIC_API_BASE_URL: ${NEXT_PUBLIC_API_BASE_URL:-http://localhost:${BACKEND_PORT:-3001}/api}
+      NEXT_PUBLIC_GRAFANA_BASE_URL: ${NEXT_PUBLIC_GRAFANA_BASE_URL:-http://localhost:${GRAFANA_PORT:-3100}}
+      NEXT_PUBLIC_PROMETHEUS_BASE_URL: ${NEXT_PUBLIC_PROMETHEUS_BASE_URL:-http://localhost:${PROMETHEUS_PORT:-9090}}
+      NEXT_PUBLIC_SENTRY_BASE_URL: ${SENTRY_BASE_URL:-}
+      NEXT_PUBLIC_SENTRY_ORG_SLUG: ${SENTRY_ORG_SLUG:-}
+      NEXT_PUBLIC_SENTRY_PROJECT_SLUG: ${SENTRY_PROJECT_SLUG:-}
+      NEXT_PUBLIC_RUN_HISTORY_REFRESH_SECONDS: ${NEXT_PUBLIC_RUN_HISTORY_REFRESH_SECONDS:-5}
       WATCHPACK_POLLING: "true"
     ports:
       - "${FRONTEND_PORT:-3000}:3000"

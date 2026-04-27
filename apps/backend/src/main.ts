@@ -12,8 +12,18 @@ import { JsonLogger } from './shared/json-logger.service';
  */
 async function bootstrap(): Promise<void> {
   const sentryDsn = process.env.SENTRY_DSN;
+  const sentryProjectSlug = process.env.SENTRY_PROJECT_SLUG ?? 'signal-lab';
   if (sentryDsn) {
-    Sentry.init({ dsn: sentryDsn, environment: process.env.NODE_ENV ?? 'development' });
+    Sentry.init({
+      dsn: sentryDsn,
+      environment: process.env.NODE_ENV ?? 'development',
+      serverName: sentryProjectSlug,
+      initialScope: {
+        tags: {
+          project_slug: sentryProjectSlug
+        }
+      }
+    });
   }
 
   const app = await NestFactory.create(AppModule, {

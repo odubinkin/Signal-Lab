@@ -19,11 +19,33 @@ const scenarioLabels: Record<RunScenarioInput["type"], string> = {
   teapot: "Teapot",
 };
 
-const observabilityLinks = [
-  { label: "Grafana Dashboard", value: "http://localhost:3100", href: "http://localhost:3100" },
-  { label: "Backend Metrics", value: "http://localhost:3001/metrics", href: "http://localhost:3001/metrics" },
-  { label: "Loki Query", value: '{app="signal-lab"}' },
-  { label: "Sentry", value: "check project dashboard" },
+type ObservabilityLink = {
+  label: string;
+  value: string;
+  href?: string;
+};
+
+const runHistoryRefreshSeconds = parsePositiveInt(process.env.NEXT_PUBLIC_RUN_HISTORY_REFRESH_SECONDS, 5);
+const runHistoryRefreshMs = runHistoryRefreshSeconds * 1000;
+
+const grafanaBaseUrl = normalizeBaseUrl(process.env.NEXT_PUBLIC_GRAFANA_BASE_URL, "http://localhost:3100");
+const prometheusBaseUrl = normalizeBaseUrl(process.env.NEXT_PUBLIC_PROMETHEUS_BASE_URL, "http://localhost:9090");
+
+const grafanaDashboardUrl = `${grafanaBaseUrl}/d/signal-lab-scenario-runs`;
+const lokiQueryUrl = `${grafanaBaseUrl}/d/signal-lab-scenario-runs/signal-lab-e28094-scenario-runs?viewPanel=panel-4&from=now-15m&to=now&refresh=10s`;
+const sentryProjectUrl = buildSentryProjectUrl(
+  process.env.NEXT_PUBLIC_SENTRY_BASE_URL,
+  process.env.NEXT_PUBLIC_SENTRY_ORG_SLUG,
+  process.env.NEXT_PUBLIC_SENTRY_PROJECT_SLUG,
+);
+
+const observabilityLinks: ObservabilityLink[] = [
+  { label: "Grafana Dashboard", value: grafanaDashboardUrl, href: grafanaDashboardUrl },
+  { label: "Prometheus", value: prometheusBaseUrl, href: prometheusBaseUrl },
+  { label: "Loki Query", value: '{app="signal-lab"}', href: lokiQueryUrl },
+  sentryProjectUrl
+    ? { label: "Sentry", value: sentryProjectUrl, href: sentryProjectUrl }
+    : { label: "Sentry", value: "check project dashboard" },
 ];
 
 export default function Home() {
@@ -45,7 +67,7 @@ export default function Home() {
   const runsQuery = useQuery({
     queryKey: ["scenario-runs"],
     queryFn: getScenarioRuns,
-    refetchInterval: 5000,
+    refetchInterval: runHistoryRefreshMs,
     retry: true,
   });
 
@@ -154,7 +176,7 @@ export default function Home() {
             <CardHeader>
               <div>
                 <CardTitle>Run History</CardTitle>
-                <CardDescription>Latest 20 persisted scenario runs, refreshed every 5 seconds.</CardDescription>
+                <CardDescription>Latest 20 persisted scenario runs, refreshed every {runHistoryRefreshSeconds} seconds.</CardDescription>
               </div>
               <CardAction>
                 <Button variant="outline" size="sm" onClick={() => void runsQuery.refetch()}>
@@ -258,4 +280,30 @@ function formatTimestamp(value: string) {
     month: "short",
     day: "2-digit",
   }).format(new Date(value));
+}
+
+function buildSentryProjectUrl(baseUrl?: string, orgSlug?: string, projectSlug?: string): string | undefined {
+  const normalizedBaseUrl = baseUrl?.trim().replace(/\/+$/, "");
+  const normalizedOrgSlug = orgSlug?.trim();
+  const normalizedProjectSlug = projectSlug?.trim();
+
+  if (!normalizedBaseUrl || !normalizedOrgSlug || !normalizedProjectSlug) {
+    return undefined;
+  }
+
+  return `${normalizedBaseUrl}/organizations/${encodeURIComponent(normalizedOrgSlug)}/projects/${encodeURIComponent(normalizedProjectSlug)}/`;
+}
+
+function parsePositiveInt(value: string | undefined, fallback: number): number {
+  if (!value) {
+    return fallback;
+  }
+
+  const parsed = Number.parseInt(value, 10);
+  return Number.isFinite(parsed) && parsed > 0 ? parsed : fallback;
+}
+
+function normalizeBaseUrl(value: string | undefined, fallback: string): string {
+  const normalized = value?.trim().replace(/\/+$/, "");
+  return normalized && normalized.length > 0 ? normalized : fallback;
 }
